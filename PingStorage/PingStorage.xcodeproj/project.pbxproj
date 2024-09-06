@@ -1,0 +1,528 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A509667B2C45C19500A4E5B5 /* SecuredKeyEncryptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A509667A2C45C19500A4E5B5 /* SecuredKeyEncryptorTests.swift */; };
+		A509667D2C45C4E000A4E5B5 /* CustomEncryptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A509667C2C45C4E000A4E5B5 /* CustomEncryptorTests.swift */; };
+		A54BF44C2BED188000CD24D4 /* SecuredKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54BF44B2BED188000CD24D4 /* SecuredKey.swift */; };
+		A54BF49F2BF2F04E00CD24D4 /* SecuredKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54BF49E2BF2F04E00CD24D4 /* SecuredKeyTests.swift */; };
+		A54BF4E52BF39DC200CD24D4 /* MemoryStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54BF4E42BF39DC200CD24D4 /* MemoryStorageTests.swift */; };
+		A54BF4E72BF39E0900CD24D4 /* KeychainStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54BF4E62BF39E0900CD24D4 /* KeychainStorageTests.swift */; };
+		A54BF4E92BF39F8000CD24D4 /* StorageDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54BF4E82BF39F8000CD24D4 /* StorageDelegateTests.swift */; };
+		A57613952C45ABA200EC0E3F /* Encryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57613942C45ABA200EC0E3F /* Encryptor.swift */; };
+		A57613972C45ACFA00EC0E3F /* SecuredKeyEncryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57613962C45ACFA00EC0E3F /* SecuredKeyEncryptor.swift */; };
+		A588CFA72BF654FA00F9052A /* CustomStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A588CFA62BF654FA00F9052A /* CustomStorageTests.swift */; };
+		A5A797052BE1782F004D0F2D /* PingStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5A796FA2BE1782E004D0F2D /* PingStorage.framework */; };
+		A5A7970B2BE1782F004D0F2D /* PingStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = A5A796FD2BE1782E004D0F2D /* PingStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A5A7971E2BE17C95004D0F2D /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A7971D2BE17C95004D0F2D /* Storage.swift */; };
+		A5A797392BE18BE3004D0F2D /* MemoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A797382BE18BE3004D0F2D /* MemoryStorage.swift */; };
+		A5A7973B2BE2A035004D0F2D /* StorageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A7973A2BE2A035004D0F2D /* StorageDelegate.swift */; };
+		A5A7974D2BE33279004D0F2D /* KeychainStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A7974C2BE33279004D0F2D /* KeychainStorage.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A5A797062BE1782F004D0F2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A5A796F12BE1782E004D0F2D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A5A796F92BE1782E004D0F2D;
+			remoteInfo = PingStorage;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		A509667A2C45C19500A4E5B5 /* SecuredKeyEncryptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecuredKeyEncryptorTests.swift; sourceTree = "<group>"; };
+		A509667C2C45C4E000A4E5B5 /* CustomEncryptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEncryptorTests.swift; sourceTree = "<group>"; };
+		A54BF44B2BED188000CD24D4 /* SecuredKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecuredKey.swift; sourceTree = "<group>"; };
+		A54BF49E2BF2F04E00CD24D4 /* SecuredKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecuredKeyTests.swift; sourceTree = "<group>"; };
+		A54BF4E42BF39DC200CD24D4 /* MemoryStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryStorageTests.swift; sourceTree = "<group>"; };
+		A54BF4E62BF39E0900CD24D4 /* KeychainStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStorageTests.swift; sourceTree = "<group>"; };
+		A54BF4E82BF39F8000CD24D4 /* StorageDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageDelegateTests.swift; sourceTree = "<group>"; };
+		A57613942C45ABA200EC0E3F /* Encryptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encryptor.swift; sourceTree = "<group>"; };
+		A57613962C45ACFA00EC0E3F /* SecuredKeyEncryptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecuredKeyEncryptor.swift; sourceTree = "<group>"; };
+		A588CFA62BF654FA00F9052A /* CustomStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStorageTests.swift; sourceTree = "<group>"; };
+		A5A796FA2BE1782E004D0F2D /* PingStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PingStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5A796FD2BE1782E004D0F2D /* PingStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PingStorage.h; sourceTree = "<group>"; };
+		A5A797042BE1782F004D0F2D /* PingStorageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PingStorageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5A7971D2BE17C95004D0F2D /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		A5A797382BE18BE3004D0F2D /* MemoryStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryStorage.swift; sourceTree = "<group>"; };
+		A5A7973A2BE2A035004D0F2D /* StorageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageDelegate.swift; sourceTree = "<group>"; };
+		A5A7974C2BE33279004D0F2D /* KeychainStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStorage.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A5A796F72BE1782E004D0F2D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A5A797012BE1782F004D0F2D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A5A797052BE1782F004D0F2D /* PingStorage.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A5A796F02BE1782E004D0F2D = {
+			isa = PBXGroup;
+			children = (
+				A5A796FC2BE1782E004D0F2D /* PingStorage */,
+				A5A797082BE1782F004D0F2D /* PingStorageTests */,
+				A5A796FB2BE1782E004D0F2D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A5A796FB2BE1782E004D0F2D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A5A796FA2BE1782E004D0F2D /* PingStorage.framework */,
+				A5A797042BE1782F004D0F2D /* PingStorageTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A5A796FC2BE1782E004D0F2D /* PingStorage */ = {
+			isa = PBXGroup;
+			children = (
+				A5A796FD2BE1782E004D0F2D /* PingStorage.h */,
+				A57613942C45ABA200EC0E3F /* Encryptor.swift */,
+				A5A7974C2BE33279004D0F2D /* KeychainStorage.swift */,
+				A5A797382BE18BE3004D0F2D /* MemoryStorage.swift */,
+				A54BF44B2BED188000CD24D4 /* SecuredKey.swift */,
+				A57613962C45ACFA00EC0E3F /* SecuredKeyEncryptor.swift */,
+				A5A7971D2BE17C95004D0F2D /* Storage.swift */,
+				A5A7973A2BE2A035004D0F2D /* StorageDelegate.swift */,
+			);
+			path = PingStorage;
+			sourceTree = "<group>";
+		};
+		A5A797082BE1782F004D0F2D /* PingStorageTests */ = {
+			isa = PBXGroup;
+			children = (
+				A509667C2C45C4E000A4E5B5 /* CustomEncryptorTests.swift */,
+				A588CFA62BF654FA00F9052A /* CustomStorageTests.swift */,
+				A54BF4E62BF39E0900CD24D4 /* KeychainStorageTests.swift */,
+				A54BF4E42BF39DC200CD24D4 /* MemoryStorageTests.swift */,
+				A54BF49E2BF2F04E00CD24D4 /* SecuredKeyTests.swift */,
+				A509667A2C45C19500A4E5B5 /* SecuredKeyEncryptorTests.swift */,
+				A54BF4E82BF39F8000CD24D4 /* StorageDelegateTests.swift */,
+			);
+			path = PingStorageTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		A5A796F52BE1782E004D0F2D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A5A7970B2BE1782F004D0F2D /* PingStorage.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		A5A796F92BE1782E004D0F2D /* PingStorage */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A5A7970E2BE1782F004D0F2D /* Build configuration list for PBXNativeTarget "PingStorage" */;
+			buildPhases = (
+				A5A796F52BE1782E004D0F2D /* Headers */,
+				A5A796F62BE1782E004D0F2D /* Sources */,
+				A5A796F72BE1782E004D0F2D /* Frameworks */,
+				A5A796F82BE1782E004D0F2D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PingStorage;
+			productName = PingStorage;
+			productReference = A5A796FA2BE1782E004D0F2D /* PingStorage.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		A5A797032BE1782F004D0F2D /* PingStorageTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A5A797112BE1782F004D0F2D /* Build configuration list for PBXNativeTarget "PingStorageTests" */;
+			buildPhases = (
+				A5A797002BE1782F004D0F2D /* Sources */,
+				A5A797012BE1782F004D0F2D /* Frameworks */,
+				A5A797022BE1782F004D0F2D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A5A797072BE1782F004D0F2D /* PBXTargetDependency */,
+			);
+			name = PingStorageTests;
+			productName = PingStorageTests;
+			productReference = A5A797042BE1782F004D0F2D /* PingStorageTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A5A796F12BE1782E004D0F2D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1530;
+				LastUpgradeCheck = 1530;
+				TargetAttributes = {
+					A5A796F92BE1782E004D0F2D = {
+						CreatedOnToolsVersion = 15.3;
+					};
+					A5A797032BE1782F004D0F2D = {
+						CreatedOnToolsVersion = 15.3;
+					};
+				};
+			};
+			buildConfigurationList = A5A796F42BE1782E004D0F2D /* Build configuration list for PBXProject "PingStorage" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A5A796F02BE1782E004D0F2D;
+			productRefGroup = A5A796FB2BE1782E004D0F2D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A5A796F92BE1782E004D0F2D /* PingStorage */,
+				A5A797032BE1782F004D0F2D /* PingStorageTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A5A796F82BE1782E004D0F2D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A5A797022BE1782F004D0F2D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A5A796F62BE1782E004D0F2D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A5A797392BE18BE3004D0F2D /* MemoryStorage.swift in Sources */,
+				A57613972C45ACFA00EC0E3F /* SecuredKeyEncryptor.swift in Sources */,
+				A54BF44C2BED188000CD24D4 /* SecuredKey.swift in Sources */,
+				A5A7973B2BE2A035004D0F2D /* StorageDelegate.swift in Sources */,
+				A5A7974D2BE33279004D0F2D /* KeychainStorage.swift in Sources */,
+				A57613952C45ABA200EC0E3F /* Encryptor.swift in Sources */,
+				A5A7971E2BE17C95004D0F2D /* Storage.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A5A797002BE1782F004D0F2D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A509667B2C45C19500A4E5B5 /* SecuredKeyEncryptorTests.swift in Sources */,
+				A54BF4E92BF39F8000CD24D4 /* StorageDelegateTests.swift in Sources */,
+				A54BF4E72BF39E0900CD24D4 /* KeychainStorageTests.swift in Sources */,
+				A509667D2C45C4E000A4E5B5 /* CustomEncryptorTests.swift in Sources */,
+				A54BF4E52BF39DC200CD24D4 /* MemoryStorageTests.swift in Sources */,
+				A54BF49F2BF2F04E00CD24D4 /* SecuredKeyTests.swift in Sources */,
+				A588CFA72BF654FA00F9052A /* CustomStorageTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A5A797072BE1782F004D0F2D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A5A796F92BE1782E004D0F2D /* PingStorage */;
+			targetProxy = A5A797062BE1782F004D0F2D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		A5A7970C2BE1782F004D0F2D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		A5A7970D2BE1782F004D0F2D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		A5A7970F2BE1782F004D0F2D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = JV6EC9KSN3;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pingidentity.PingStorage;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A5A797102BE1782F004D0F2D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = JV6EC9KSN3;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pingidentity.PingStorage;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A5A797122BE1782F004D0F2D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9QSE66762D;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pingidentity.PingStorageTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PingTestHost.app/PingTestHost";
+			};
+			name = Debug;
+		};
+		A5A797132BE1782F004D0F2D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9QSE66762D;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pingidentity.PingStorageTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PingTestHost.app/PingTestHost";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A5A796F42BE1782E004D0F2D /* Build configuration list for PBXProject "PingStorage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A5A7970C2BE1782F004D0F2D /* Debug */,
+				A5A7970D2BE1782F004D0F2D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A5A7970E2BE1782F004D0F2D /* Build configuration list for PBXNativeTarget "PingStorage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A5A7970F2BE1782F004D0F2D /* Debug */,
+				A5A797102BE1782F004D0F2D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A5A797112BE1782F004D0F2D /* Build configuration list for PBXNativeTarget "PingStorageTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A5A797122BE1782F004D0F2D /* Debug */,
+				A5A797132BE1782F004D0F2D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A5A796F12BE1782E004D0F2D /* Project object */;
+}

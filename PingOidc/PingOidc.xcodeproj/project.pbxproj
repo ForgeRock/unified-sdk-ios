@@ -1,0 +1,588 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 63;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3A8532292BE2C5DB00F8619D /* PingOrchestrate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A8532282BE2C5DB00F8619D /* PingOrchestrate.framework */; };
+		3A85322A2BE2C5DB00F8619D /* PingOrchestrate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3A8532282BE2C5DB00F8619D /* PingOrchestrate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3AB1CA102BD6F99C003FCE3C /* PingOidc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AB1CA072BD6F99C003FCE3C /* PingOidc.framework */; };
+		3AB1CA162BD6F99C003FCE3C /* PingOidc.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB1CA0A2BD6F99C003FCE3C /* PingOidc.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3AB1CA2D2BD7727B003FCE3C /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB1CA2A2BD7727B003FCE3C /* Token.swift */; };
+		3AB1CA2E2BD7727B003FCE3C /* Pkce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB1CA2B2BD7727B003FCE3C /* Pkce.swift */; };
+		3AB1CA312BD859BC003FCE3C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB1CA302BD859BC003FCE3C /* User.swift */; };
+		3AB1CA332BD8823C003FCE3C /* Agent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB1CA322BD8823C003FCE3C /* Agent.swift */; };
+		3AB1CA352BD884E4003FCE3C /* OidcClientConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB1CA342BD884E4003FCE3C /* OidcClientConfig.swift */; };
+		3AB1CA3B2BD96089003FCE3C /* OidcUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB1CA3A2BD96089003FCE3C /* OidcUser.swift */; };
+		3AB1CA3D2BD961A2003FCE3C /* OidcClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB1CA3C2BD961A2003FCE3C /* OidcClient.swift */; };
+		A50966B62C4C342800A4E5B5 /* OidcError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50966B52C4C342800A4E5B5 /* OidcError.swift */; };
+		A50966B82C4C34CB00A4E5B5 /* AuthCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50966B72C4C34CB00A4E5B5 /* AuthCode.swift */; };
+		A50966BA2C4C3E7300A4E5B5 /* OpenIdConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50966B92C4C3E7300A4E5B5 /* OpenIdConfiguration.swift */; };
+		A50966D52C4DD79000A4E5B5 /* TokenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50966D42C4DD79000A4E5B5 /* TokenTests.swift */; };
+		A50966DB2C4DDFAE00A4E5B5 /* PkceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50966DA2C4DDFAE00A4E5B5 /* PkceTests.swift */; };
+		A50966DD2C4DE4D700A4E5B5 /* MockResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50966DC2C4DE4D700A4E5B5 /* MockResponse.swift */; };
+		A50966DF2C4DF3CD00A4E5B5 /* OidcClientConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50966DE2C4DF3CD00A4E5B5 /* OidcClientConfigTests.swift */; };
+		A50966E12C4F1D9D00A4E5B5 /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50966E02C4F1D9D00A4E5B5 /* MockURLProtocol.swift */; };
+		A50966E32C4F2F4300A4E5B5 /* OidcClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50966E22C4F2F4300A4E5B5 /* OidcClientTests.swift */; };
+		A50966EF2C4FF75400A4E5B5 /* MockStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50966EE2C4FF75400A4E5B5 /* MockStorage.swift */; };
+		A50967092C50843E00A4E5B5 /* MockAPIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50967082C50843E00A4E5B5 /* MockAPIEndpoint.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3AB1CA112BD6F99C003FCE3C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3AB1C9FE2BD6F99C003FCE3C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3AB1CA062BD6F99C003FCE3C;
+			remoteInfo = PingOidc;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3A85322B2BE2C5DC00F8619D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3A85322A2BE2C5DB00F8619D /* PingOrchestrate.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		3A8532282BE2C5DB00F8619D /* PingOrchestrate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PingOrchestrate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AB1CA072BD6F99C003FCE3C /* PingOidc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PingOidc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AB1CA0A2BD6F99C003FCE3C /* PingOidc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PingOidc.h; sourceTree = "<group>"; };
+		3AB1CA0F2BD6F99C003FCE3C /* PingOidcTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PingOidcTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AB1CA2A2BD7727B003FCE3C /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		3AB1CA2B2BD7727B003FCE3C /* Pkce.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pkce.swift; sourceTree = "<group>"; };
+		3AB1CA302BD859BC003FCE3C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		3AB1CA322BD8823C003FCE3C /* Agent.swift */ = {isa = PBXFileReference; indentWidth = 5; lastKnownFileType = sourcecode.swift; path = Agent.swift; sourceTree = "<group>"; };
+		3AB1CA342BD884E4003FCE3C /* OidcClientConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OidcClientConfig.swift; sourceTree = "<group>"; };
+		3AB1CA3A2BD96089003FCE3C /* OidcUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OidcUser.swift; sourceTree = "<group>"; };
+		3AB1CA3C2BD961A2003FCE3C /* OidcClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OidcClient.swift; sourceTree = "<group>"; };
+		A50966B52C4C342800A4E5B5 /* OidcError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OidcError.swift; sourceTree = "<group>"; };
+		A50966B72C4C34CB00A4E5B5 /* AuthCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCode.swift; sourceTree = "<group>"; };
+		A50966B92C4C3E7300A4E5B5 /* OpenIdConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenIdConfiguration.swift; sourceTree = "<group>"; };
+		A50966D42C4DD79000A4E5B5 /* TokenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenTests.swift; sourceTree = "<group>"; };
+		A50966DA2C4DDFAE00A4E5B5 /* PkceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PkceTests.swift; sourceTree = "<group>"; };
+		A50966DC2C4DE4D700A4E5B5 /* MockResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockResponse.swift; sourceTree = "<group>"; };
+		A50966DE2C4DF3CD00A4E5B5 /* OidcClientConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OidcClientConfigTests.swift; sourceTree = "<group>"; };
+		A50966E02C4F1D9D00A4E5B5 /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
+		A50966E22C4F2F4300A4E5B5 /* OidcClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OidcClientTests.swift; sourceTree = "<group>"; };
+		A50966EE2C4FF75400A4E5B5 /* MockStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStorage.swift; sourceTree = "<group>"; };
+		A50967082C50843E00A4E5B5 /* MockAPIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIEndpoint.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3AB1CA042BD6F99C003FCE3C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A8532292BE2C5DB00F8619D /* PingOrchestrate.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3AB1CA0C2BD6F99C003FCE3C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3AB1CA102BD6F99C003FCE3C /* PingOidc.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3A8532272BE2C5DB00F8619D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3A8532282BE2C5DB00F8619D /* PingOrchestrate.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3AB1C9FD2BD6F99C003FCE3C = {
+			isa = PBXGroup;
+			children = (
+				3AB1CA092BD6F99C003FCE3C /* PingOidc */,
+				3AB1CA132BD6F99C003FCE3C /* PingOidcTests */,
+				3AB1CA082BD6F99C003FCE3C /* Products */,
+				3A8532272BE2C5DB00F8619D /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		3AB1CA082BD6F99C003FCE3C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3AB1CA072BD6F99C003FCE3C /* PingOidc.framework */,
+				3AB1CA0F2BD6F99C003FCE3C /* PingOidcTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3AB1CA092BD6F99C003FCE3C /* PingOidc */ = {
+			isa = PBXGroup;
+			children = (
+				3AB1CA0A2BD6F99C003FCE3C /* PingOidc.h */,
+				3AB1CA322BD8823C003FCE3C /* Agent.swift */,
+				A50966B72C4C34CB00A4E5B5 /* AuthCode.swift */,
+				3AB1CA3C2BD961A2003FCE3C /* OidcClient.swift */,
+				3AB1CA342BD884E4003FCE3C /* OidcClientConfig.swift */,
+				A50966B52C4C342800A4E5B5 /* OidcError.swift */,
+				3AB1CA3A2BD96089003FCE3C /* OidcUser.swift */,
+				A50966B92C4C3E7300A4E5B5 /* OpenIdConfiguration.swift */,
+				3AB1CA2B2BD7727B003FCE3C /* Pkce.swift */,
+				3AB1CA2A2BD7727B003FCE3C /* Token.swift */,
+				3AB1CA302BD859BC003FCE3C /* User.swift */,
+			);
+			path = PingOidc;
+			sourceTree = "<group>";
+		};
+		3AB1CA132BD6F99C003FCE3C /* PingOidcTests */ = {
+			isa = PBXGroup;
+			children = (
+				A509D1CC2C6D04E9003A0006 /* mock */,
+				A50966DE2C4DF3CD00A4E5B5 /* OidcClientConfigTests.swift */,
+				A50966E22C4F2F4300A4E5B5 /* OidcClientTests.swift */,
+				A50966DA2C4DDFAE00A4E5B5 /* PkceTests.swift */,
+				A50966D42C4DD79000A4E5B5 /* TokenTests.swift */,
+			);
+			path = PingOidcTests;
+			sourceTree = "<group>";
+		};
+		A509D1CC2C6D04E9003A0006 /* mock */ = {
+			isa = PBXGroup;
+			children = (
+				A50967082C50843E00A4E5B5 /* MockAPIEndpoint.swift */,
+				A50966DC2C4DE4D700A4E5B5 /* MockResponse.swift */,
+				A50966E02C4F1D9D00A4E5B5 /* MockURLProtocol.swift */,
+				A50966EE2C4FF75400A4E5B5 /* MockStorage.swift */,
+			);
+			path = mock;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		3AB1CA022BD6F99C003FCE3C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3AB1CA162BD6F99C003FCE3C /* PingOidc.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		3AB1CA062BD6F99C003FCE3C /* PingOidc */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3AB1CA192BD6F99C003FCE3C /* Build configuration list for PBXNativeTarget "PingOidc" */;
+			buildPhases = (
+				3AB1CA022BD6F99C003FCE3C /* Headers */,
+				3AB1CA032BD6F99C003FCE3C /* Sources */,
+				3AB1CA042BD6F99C003FCE3C /* Frameworks */,
+				3AB1CA052BD6F99C003FCE3C /* Resources */,
+				3A85322B2BE2C5DC00F8619D /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PingOidc;
+			productName = PingOidc;
+			productReference = 3AB1CA072BD6F99C003FCE3C /* PingOidc.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		3AB1CA0E2BD6F99C003FCE3C /* PingOidcTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3AB1CA1C2BD6F99C003FCE3C /* Build configuration list for PBXNativeTarget "PingOidcTests" */;
+			buildPhases = (
+				3AB1CA0B2BD6F99C003FCE3C /* Sources */,
+				3AB1CA0C2BD6F99C003FCE3C /* Frameworks */,
+				3AB1CA0D2BD6F99C003FCE3C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3AB1CA122BD6F99C003FCE3C /* PBXTargetDependency */,
+			);
+			name = PingOidcTests;
+			productName = PingOidcTests;
+			productReference = 3AB1CA0F2BD6F99C003FCE3C /* PingOidcTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3AB1C9FE2BD6F99C003FCE3C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					3AB1CA062BD6F99C003FCE3C = {
+						CreatedOnToolsVersion = 15.0;
+						LastSwiftMigration = 1500;
+					};
+					3AB1CA0E2BD6F99C003FCE3C = {
+						CreatedOnToolsVersion = 15.0;
+						LastSwiftMigration = 1540;
+					};
+				};
+			};
+			buildConfigurationList = 3AB1CA012BD6F99C003FCE3C /* Build configuration list for PBXProject "PingOidc" */;
+			compatibilityVersion = "Xcode 15.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3AB1C9FD2BD6F99C003FCE3C;
+			productRefGroup = 3AB1CA082BD6F99C003FCE3C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3AB1CA062BD6F99C003FCE3C /* PingOidc */,
+				3AB1CA0E2BD6F99C003FCE3C /* PingOidcTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3AB1CA052BD6F99C003FCE3C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3AB1CA0D2BD6F99C003FCE3C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3AB1CA032BD6F99C003FCE3C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3AB1CA312BD859BC003FCE3C /* User.swift in Sources */,
+				3AB1CA3D2BD961A2003FCE3C /* OidcClient.swift in Sources */,
+				3AB1CA332BD8823C003FCE3C /* Agent.swift in Sources */,
+				A50966B82C4C34CB00A4E5B5 /* AuthCode.swift in Sources */,
+				3AB1CA3B2BD96089003FCE3C /* OidcUser.swift in Sources */,
+				A50966BA2C4C3E7300A4E5B5 /* OpenIdConfiguration.swift in Sources */,
+				3AB1CA2E2BD7727B003FCE3C /* Pkce.swift in Sources */,
+				A50966B62C4C342800A4E5B5 /* OidcError.swift in Sources */,
+				3AB1CA2D2BD7727B003FCE3C /* Token.swift in Sources */,
+				3AB1CA352BD884E4003FCE3C /* OidcClientConfig.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3AB1CA0B2BD6F99C003FCE3C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A50967092C50843E00A4E5B5 /* MockAPIEndpoint.swift in Sources */,
+				A50966DB2C4DDFAE00A4E5B5 /* PkceTests.swift in Sources */,
+				A50966EF2C4FF75400A4E5B5 /* MockStorage.swift in Sources */,
+				A50966DF2C4DF3CD00A4E5B5 /* OidcClientConfigTests.swift in Sources */,
+				A50966E12C4F1D9D00A4E5B5 /* MockURLProtocol.swift in Sources */,
+				A50966DD2C4DE4D700A4E5B5 /* MockResponse.swift in Sources */,
+				A50966D52C4DD79000A4E5B5 /* TokenTests.swift in Sources */,
+				A50966E32C4F2F4300A4E5B5 /* OidcClientTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3AB1CA122BD6F99C003FCE3C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3AB1CA062BD6F99C003FCE3C /* PingOidc */;
+			targetProxy = 3AB1CA112BD6F99C003FCE3C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		3AB1CA172BD6F99C003FCE3C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		3AB1CA182BD6F99C003FCE3C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		3AB1CA1A2BD6F99C003FCE3C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 9QSE66762D;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pingidentity.PingOidc;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3AB1CA1B2BD6F99C003FCE3C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 9QSE66762D;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pingidentity.PingOidc;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		3AB1CA1D2BD6F99C003FCE3C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9QSE66762D;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pingidentity.PingOidcTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PingTestHost.app/PingTestHost";
+			};
+			name = Debug;
+		};
+		3AB1CA1E2BD6F99C003FCE3C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9QSE66762D;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pingidentity.PingOidcTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PingTestHost.app/PingTestHost";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3AB1CA012BD6F99C003FCE3C /* Build configuration list for PBXProject "PingOidc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3AB1CA172BD6F99C003FCE3C /* Debug */,
+				3AB1CA182BD6F99C003FCE3C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3AB1CA192BD6F99C003FCE3C /* Build configuration list for PBXNativeTarget "PingOidc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3AB1CA1A2BD6F99C003FCE3C /* Debug */,
+				3AB1CA1B2BD6F99C003FCE3C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3AB1CA1C2BD6F99C003FCE3C /* Build configuration list for PBXNativeTarget "PingOidcTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3AB1CA1D2BD6F99C003FCE3C /* Debug */,
+				3AB1CA1E2BD6F99C003FCE3C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3AB1C9FE2BD6F99C003FCE3C /* Project object */;
+}

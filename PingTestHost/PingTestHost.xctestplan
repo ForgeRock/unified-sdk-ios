@@ -1,0 +1,62 @@
+{
+  "configurations" : [
+    {
+      "id" : "653B9364-499B-4DFE-A77C-201EEBA63A50",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:PingTestHost.xcodeproj",
+      "identifier" : "A54BF4642BF2E33C00CD24D4",
+      "name" : "PingTestHost"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:..\/PingLogger\/PingLogger.xcodeproj",
+        "identifier" : "A5A796B52BE04E68004D0F2D",
+        "name" : "PingLoggerTests"
+      }
+    },
+    {
+      "skippedTests" : [
+        "StorageDelegateTests\/testConcurrentAccess()"
+      ],
+      "target" : {
+        "containerPath" : "container:..\/PingStorage\/PingStorage.xcodeproj",
+        "identifier" : "A5A797032BE1782F004D0F2D",
+        "name" : "PingStorageTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/PingOidc\/PingOidc.xcodeproj",
+        "identifier" : "3AB1CA0E2BD6F99C003FCE3C",
+        "name" : "PingOidcTests"
+      }
+    },
+    {
+      "skippedTests" : [
+        "DaVinciIntegrationTests\/testHappyPathWithPasswordCredentials()"
+      ],
+      "target" : {
+        "containerPath" : "container:..\/PingDavinci\/PingDavinci.xcodeproj",
+        "identifier" : "3A5441A82BCDF20700385131",
+        "name" : "PingDavinciTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/PingOrchestrate\/PingOrchestrate.xcodeproj",
+        "identifier" : "3A54417D2BCDF1D900385131",
+        "name" : "PingOrchestrateTests"
+      }
+    }
+  ],
+  "version" : 1
+}
