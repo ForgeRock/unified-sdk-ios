@@ -1,0 +1,58 @@
+name: Build and Test
+
+on:
+  workflow_call:
+    secrets:
+      SLACK_WEBHOOK:
+        description: 'Slack Notifier Webhook'
+        required: true
+jobs:
+  build-and-test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-14, macos-14-large]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+
+    steps:
+      # Clone the repo
+      - name: Clone the repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{github.event.pull_request.head.repo.full_name}}
+          fetch-depth: 0
+
+      # Get the architecture of the chip
+      - name: Check chip architecture 
+        run: echo "CHIP_TYPE=$(uname -m)" >> $GITHUB_ENV    
+
+      # Set target Xcode version. For more details and options see:
+      # https://github.com/actions/virtual-environments/blob/main/images/macos/macos-14-Readme.md
+      - name: Select Xcode
+        run: sudo xcode-select -switch /Applications/Xcode_15.4.app && /usr/bin/xcodebuild -version
+        
+      # Run all tests
+      - name: Run tests
+        run: xcodebuild test -scheme PingTestHost -workspace SampleApps/Ping.xcworkspace -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 15 Pro Max,OS=17.5' -derivedDataPath DerivedData -enableCodeCoverage YES -resultBundlePath TestResults | xcpretty && exit ${PIPESTATUS[0]}
+
+      # Publish test results
+      - name: Publish test results
+        uses: kishikawakatsumi/xcresulttool@v1
+        with:
+          title: "Test Results ${{ matrix.os }} - ${{ env.CHIP_TYPE }}"
+          path: TestResults.xcresult
+          show-passed-tests: false
+        if: success() || failure()
+ 
+      # Send slack notification with result status
+      - uses: 8398a7/action-slack@v3
+        with:
+          mention: 'stoyan.petrov'
+          if_mention: 'failure,cancelled'
+          fields: repo,author,eventName,message,job,pullRequest,took
+          status: ${{ job.status }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+        if: always()

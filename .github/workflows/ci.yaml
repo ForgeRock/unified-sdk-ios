@@ -1,0 +1,27 @@
+name: CI
+
+# Trigger on push or pull request
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+  push:
+    branches:
+      - master
+      - develop
+
+jobs:
+  # Build and run unit tests
+  build-and-test:
+    name: Build and test
+    uses: ./.github/workflows/build-and-test.yaml
+    secrets:
+      SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+
+  # Run Mend CLI Scan
+  mend-cli-scan:
+    name: Mend CLI Scan
+    uses: ./.github/workflows/mend-cli-scan.yaml
+    secrets:
+      MEND_EMAIL: ${{ secrets.MEND_EMAIL }}
+      MEND_USER_KEY: ${{ secrets.MEND_USER_KEY }}
+      SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }} 

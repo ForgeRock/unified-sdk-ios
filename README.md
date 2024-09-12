@@ -1,3 +1,5 @@
+[![Build](https://github.com/ForgeRock/unified-sdk-ios/actions/workflows/ci.yaml/badge.svg)](https://github.com/ForgeRock/unified-sdk-ios/actions/workflows/ci.yaml)
+
 <div>
   <picture>
      <img src="https://www.pingidentity.com/content/dam/ping-6-2-assets/topnav-json-configs/Ping-Logo.svg" width="80" height="80"  alt=""/>
