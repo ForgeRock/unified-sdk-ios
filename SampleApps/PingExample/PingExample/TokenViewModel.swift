@@ -23,7 +23,7 @@ class TokenViewModel: ObservableObject {
     }
     
     func accessToken() async {
-        let token = await davinci.user()?.token()
+        let token = await ConfigurationManager.shared.davinci?.user()?.token()
         switch token {
         case .success(let accessToken):
             await MainActor.run {
@@ -36,7 +36,9 @@ class TokenViewModel: ObservableObject {
             }
             LogManager.standard.e("", error: error)
         case .none:
-            break
+            await MainActor.run {
+                self.accessToken = "Error: Token nil, need to log in"
+            }
         }
 
     }
@@ -53,7 +55,7 @@ class UserInfoViewModel: ObservableObject {
     }
     
     func fetchUserInfo() async {
-        let userInfo = await davinci.user()?.userinfo(cache: false)
+        let userInfo = await ConfigurationManager.shared.davinci?.user()?.userinfo(cache: false)
         switch userInfo {
         case .success(let userInfoDictionary):
             await MainActor.run {
@@ -68,7 +70,9 @@ class UserInfoViewModel: ObservableObject {
             }
             LogManager.standard.e("", error: error)
         case .none:
-            break
+            await MainActor.run {
+                self.userInfo = "Error: Userinfo nil, need to log in"
+            }
         }
     }
 }
@@ -78,7 +82,7 @@ class LogOutViewModel: ObservableObject {
     @Published var logout: String = ""
     
     func logout() async {
-        await davinci.user()?.logout()
+        await ConfigurationManager.shared.davinci?.user()?.logout()
         await MainActor.run {
             logout =  "Logout completed"
         }

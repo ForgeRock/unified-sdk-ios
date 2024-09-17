@@ -30,6 +30,8 @@
 		A588D0092BF6A1FF00F9052A /* PingLogger.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A588CFF22BF69F1A00F9052A /* PingLogger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A588D00A2BF6A20500F9052A /* PingStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A588CFFF2BF69F3300F9052A /* PingStorage.framework */; };
 		A588D00B2BF6A20500F9052A /* PingStorage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A588CFFF2BF69F3300F9052A /* PingStorage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ECB75DC42C986312000517C9 /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB75DC32C986312000517C9 /* ConfigurationManager.swift */; };
+		ECB75DC62C986663000517C9 /* ConfigurationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB75DC52C986663000517C9 /* ConfigurationViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -161,6 +163,9 @@
 		A588CFF92BF69F3300F9052A /* PingStorage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PingStorage.xcodeproj; path = ../../PingStorage/PingStorage.xcodeproj; sourceTree = "<group>"; };
 		A588D0042BF6A0E500F9052A /* StorageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageViewModel.swift; sourceTree = "<group>"; };
 		A588D0052BF6A0E500F9052A /* LoggerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggerViewModel.swift; sourceTree = "<group>"; };
+		ECB75DC32C986312000517C9 /* ConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
+		ECB75DC52C986663000517C9 /* ConfigurationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationViewModel.swift; sourceTree = "<group>"; };
+		ECB75DC72C999368000517C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,7 +225,10 @@
 		3A54412F2BCDF10900385131 /* PingExample */ = {
 			isa = PBXGroup;
 			children = (
+				ECB75DC72C999368000517C9 /* Info.plist */,
+				ECB75DC32C986312000517C9 /* ConfigurationManager.swift */,
 				3AE945732BF27223007B3381 /* LoginUtility.swift */,
+				ECB75DC52C986663000517C9 /* ConfigurationViewModel.swift */,
 				3A5441322BCDF10900385131 /* ContentView.swift */,
 				3A8532322BE2D5D800F8619D /* LoginView.swift */,
 				3A3709952BEB038200AA7B51 /* AccessToken.swift */,
@@ -546,7 +554,9 @@
 				A588D0062BF6A0E500F9052A /* StorageViewModel.swift in Sources */,
 				3A8532332BE2D5D800F8619D /* LoginView.swift in Sources */,
 				3A5441332BCDF10900385131 /* ContentView.swift in Sources */,
+				ECB75DC62C986663000517C9 /* ConfigurationViewModel.swift in Sources */,
 				3A8092F42BE99F0F00AD667F /* InputView.swift in Sources */,
+				ECB75DC42C986312000517C9 /* ConfigurationManager.swift in Sources */,
 				3AB1C9F42BD6C6F3003FCE3C /* LoginViewModel.swift in Sources */,
 				3A3709962BEB038200AA7B51 /* AccessToken.swift in Sources */,
 			);
@@ -715,10 +725,10 @@
 				DEVELOPMENT_TEAM = 9QSE66762D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Davinci;
+				INFOPLIST_FILE = PingExample/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DaVinci;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -746,10 +756,10 @@
 				DEVELOPMENT_TEAM = 9QSE66762D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Davinci;
+				INFOPLIST_FILE = PingExample/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DaVinci;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
