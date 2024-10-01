@@ -22,7 +22,15 @@ class TokenViewModel: ObservableObject {
     }
     
     func accessToken() async {
-        let token = await ConfigurationManager.shared.davinci?.user()?.token()
+        //TODO: Integration Point. STEP 6
+        /*
+         Use the ConfigurationManager shared class to retrieve the user token.
+         The ViewModel will save that in the `self.accessToken` variable and
+         the view will display the value.
+         
+         Example use: "let token = await ConfigurationManager.shared.davinci?.user()?.token()"
+         */
+        
         switch token {
         case .success(let accessToken):
             await MainActor.run {

@@ -26,15 +26,22 @@ class ConfigurationManager: ObservableObject {
     
     public func createDavinciWorkflow() {
         if let currentConfiguration = self.currentConfigurationViewModel {
-            self.davinci = DaVinci.createDaVinci { config in
-                //config.debug = true
-                config.module(OidcModule.config) { oidcValue in
-                    oidcValue.clientId = currentConfiguration.clientId
-                    oidcValue.scopes = Set(currentConfiguration.scopes)
-                    oidcValue.redirectUri = currentConfiguration.redirectUri
-                    oidcValue.discoveryEndpoint = currentConfiguration.discoveryEndpoint
-                }
-            }
+            //TODO: Integration Point. STEP 2
+            /*
+             Based on the current `ConfigurationViewModel` create a DaVinci instance by calling the
+             `DaVinci.createDaVinci` SDK method. This will create a workflow, ready to be called
+             and start an Authorization/Authentication flow based on your configuration.
+             Example:
+             self.davinci = DaVinci.createDaVinci { config in
+                 //config.debug = true
+                 config.module(OidcModule.config) { oidcValue in
+                     oidcValue.clientId = currentConfiguration.clientId
+                     oidcValue.scopes = Set(currentConfiguration.scopes)
+                     oidcValue.redirectUri = currentConfiguration.redirectUri
+                     oidcValue.discoveryEndpoint = currentConfiguration.discoveryEndpoint
+                 }
+             }
+             */
         }
     }
     
@@ -62,6 +69,15 @@ class ConfigurationManager: ObservableObject {
                 return ConfigurationViewModel(clientId: loadedConfiguration.clientId, scopes: loadedConfiguration.scopes, redirectUri: loadedConfiguration.redirectUri, discoveryEndpoint: loadedConfiguration.discoveryEndpoint)
             }
         }
+        //TODO: Integration Point. STEP 1
+        /*
+         Create and return a ConfigurationViewModel. This will serve as the defaultConfigurationViewModel for the runtime of your application.
+         Any changes, by editing during runtime will be saved using the `saveConfiguration` method and loaded on start up using the `loadConfigurationViewModel` Method.
+         The developer needs to set up a configuration that the SDK will use to communicate the Davinci. These OAuth2.0 details will be used when making
+         authorization calls. The required properties are: `clientId`, `scopes`, `redirectUri`, `discoveryEndpoint`. In this Sample Application,
+         creating a ConfigurationViewModel, acts as the SDK configuration starting point. The `ConfigurationManager` is a Singleton object that
+         will remain in memory for the excecution of the application. To continue edit the values below between the '" "' symbols.
+         */
         return ConfigurationViewModel(
             clientId: "[Client ID]",
             scopes: ["openid", "email", "address", "phone", "profile"],

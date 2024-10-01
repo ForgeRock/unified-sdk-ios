@@ -15,7 +15,14 @@ class LogoutViewModel: ObservableObject {
     @Published var logout: String = ""
     
     func logout() async {
-        await ConfigurationManager.shared.davinci?.user()?.logout()
+        //TODO: Integration Point. STEP 7
+        /*
+         Use the ConfigurationManager shared class to retrieve the davinci class reference.
+         When wanting to logout the user, you need to call `user()?.logout()`.
+         
+         Example use: "await ConfigurationManager.shared.davinci?.user()?.logout()"
+         */
+        
         await MainActor.run {
             logout =  "Logout completed"
         }

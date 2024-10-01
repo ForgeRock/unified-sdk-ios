@@ -22,7 +22,16 @@ class UserInfoViewModel: ObservableObject {
     }
     
     func fetchUserInfo() async {
-        let userInfo = await ConfigurationManager.shared.davinci?.user()?.userinfo(cache: false)
+        /*
+         //TODO: Integration Point. STEP 6
+         Use the ConfigurationManager shared class to retrieve the user info.
+         The ViewModel will save that in the `self.userInfo` variable and
+         the view will display the value.
+         
+         Example use: "let userInfo = await ConfigurationManager.shared.davinci?.user()?.userinfo(cache: false)"
+         */
+        
+        
         switch userInfo {
         case .success(let userInfoDictionary):
             await MainActor.run {
