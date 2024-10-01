@@ -63,10 +63,20 @@ class ConfigurationManager: ObservableObject {
             }
         }
         return ConfigurationViewModel(
-            clientId: "[CLIENT ID]",
+            clientId: "[Client ID]",
             scopes: ["openid", "email", "address", "phone", "profile"],
-            redirectUri: "[REDIRECT URI]",
-            discoveryEndpoint: "[DISCOVERY ENDPOINT]"
+            redirectUri: "[Redirect URI]",
+            discoveryEndpoint: "[Discovery Endpoint]"
         )
     }
 }
+
+/*
+ Example Values (Please create your own application as described in the documentation):
+ return ConfigurationViewModel(
+     clientId: "10a80cd7-a844-4cdf-b1c6-7dc2ccdb9769",
+     scopes: ["openid", "email", "address", "phone", "profile"],
+     redirectUri: "org.forgerock.demo://oauth2redirect",
+     discoveryEndpoint: "https://auth.pingone.com/5e508bc0-91e7-409b-8514-783bad6d1811/as/.well-known/openid-configuration"
+ )
+ */

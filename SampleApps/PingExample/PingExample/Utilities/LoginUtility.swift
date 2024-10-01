@@ -83,4 +83,21 @@ struct RegisterNow: View {
     }
 }
 
-
+struct ActivityIndicatorView: View {
+    @Binding var isAnimating: Bool
+    let style: UIActivityIndicatorView.Style
+    let color: Color
+    
+    var body: some View {
+        if isAnimating {
+            VStack {
+                Spacer()
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: color))
+                    .padding()
+                Spacer()
+            }
+            .background(Color.black.opacity(0.4).ignoresSafeArea())
+        }
+    }
+}

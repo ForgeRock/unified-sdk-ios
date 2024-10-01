@@ -1,5 +1,5 @@
-//
-//  TokenViewModel.swift
+// 
+//  UserInfoViewModel.swift
 //  PingExample
 //
 //  Copyright (c) 2024 Ping Identity. All rights reserved.
@@ -10,39 +10,6 @@
 
 import Foundation
 import PingLogger
-
-class TokenViewModel: ObservableObject {
-    
-    @Published var accessToken: String = ""
-    
-    
-    init() {
-        Task {
-            await accessToken()
-        }
-    }
-    
-    func accessToken() async {
-        let token = await ConfigurationManager.shared.davinci?.user()?.token()
-        switch token {
-        case .success(let accessToken):
-            await MainActor.run {
-                self.accessToken = String(describing: accessToken)
-            }
-            LogManager.standard.i("AccessToken: \(self.accessToken)")
-        case .failure(let error):
-            await MainActor.run {
-                self.accessToken = "Error: \(error.localizedDescription)"
-            }
-            LogManager.standard.e("", error: error)
-        case .none:
-            await MainActor.run {
-                self.accessToken = "Error: Token nil, need to log in"
-            }
-        }
-
-    }
-}
 
 class UserInfoViewModel: ObservableObject {
     
@@ -74,18 +41,5 @@ class UserInfoViewModel: ObservableObject {
                 self.userInfo = "Error: Userinfo nil, need to log in"
             }
         }
-    }
-}
-
-class LogOutViewModel: ObservableObject {
-    
-    @Published var logout: String = ""
-    
-    func logout() async {
-        await ConfigurationManager.shared.davinci?.user()?.logout()
-        await MainActor.run {
-            logout =  "Logout completed"
-        }
-    
     }
 }

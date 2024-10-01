@@ -13,17 +13,6 @@ import PingDavinci
 import PingOidc
 import PingOrchestrate
 
-//public let davinci = DaVinci.createDaVinci { config in
-//    //config.debug = true
-//    config.module(OidcModule.config) { oidcValue in
-//        let configViewModel = ConfigurationManager.shared.loadConfigurationViewModel()
-//        oidcValue.clientId = configViewModel.clientId
-//        oidcValue.scopes = Set(configViewModel.scopes)
-//        oidcValue.redirectUri = configViewModel.redirectUri
-//        oidcValue.discoveryEndpoint = configViewModel.discoveryEndpoint
-//    }
-//}
-
 class DavinciViewModel: ObservableObject {
     
     @Published public var data: StateNode = StateNode()
@@ -35,7 +24,6 @@ class DavinciViewModel: ObservableObject {
             await startDavinci()
         }
     }
-    
     
     private func startDavinci() async {
         

@@ -13,56 +13,6 @@ import SwiftUI
 import PingOrchestrate
 import PingDavinci
 
-struct DavinciView: View {
-    
-    @StateObject var viewmodel = DavinciViewModel()
-    @Binding var path: [String]
-    
-    var body: some View {
-        ZStack {
-            ScrollView {
-                VStack {
-                    Spacer()
-                    switch viewmodel.data.currentNode {
-                    case let connector as Connector:
-                        ConnectorView(viewmodel: viewmodel, connector: connector)
-                    case is SuccessNode:
-                        VStack{}.onAppear {
-                            path.removeLast()
-                            path.append("Token")
-                        }
-                    case let errorNode as ErrorNode:
-                        if let connector = viewmodel.data.previousNode as? Connector {
-                            ConnectorView(viewmodel: viewmodel, connector: connector)
-                        }
-                        ErrorView(name: errorNode.cause.localizedDescription)
-                    case let failureNode as FailureNode:
-                        if let connector = viewmodel.data.previousNode as? Connector {
-                            ConnectorView(viewmodel: viewmodel, connector: connector)
-                        }
-                        ErrorView(name: failureNode.message)
-                    default:
-                        EmptyView()
-                    }
-                }
-            }
-            
-            Spacer()
-            
-            // Activity indicator
-            if viewmodel.isLoading {
-                Color.black.opacity(0.4)
-                    .edgesIgnoringSafeArea(.all)
-                
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle())
-                    .scaleEffect(4) // Increase spinner size if needed
-                    .foregroundColor(.white) // Set spinner color
-            }
-        }
-    }
-}
-
 struct ConnectorView: View {
     
     @ObservedObject var viewmodel: DavinciViewModel
@@ -73,7 +23,7 @@ struct ConnectorView: View {
             Image("Logo").resizable().scaledToFill().frame(width: 100, height: 100)
                 .padding(.vertical, 32)
             HeaderView(name: connector.name)
-            NewLoginView(
+            LoginView(
                 davinciViewModel: viewmodel,
                 connector: connector, collectorsList: connector.collectors)
         }
@@ -101,7 +51,7 @@ struct HeaderView: View {
     }
 }
 
-struct NewLoginView: View {
+struct LoginView: View {
     // MARK: - Propertiers
     @ObservedObject var davinciViewModel: DavinciViewModel
     
@@ -117,6 +67,9 @@ struct NewLoginView: View {
             ForEach(collectorsList, id: \.id) { field in
                 
                 VStack {
+                    /*
+                     Add integration to present fields
+                     */
                     if let text = field as? TextCollector {
                         InputView(text: text.value, placeholderString: text.label, field: text)
                     }
@@ -128,6 +81,9 @@ struct NewLoginView: View {
                     if let submitButton = field as? SubmitCollector {
                         InputButton(title: submitButton.label, field: submitButton) {
                             Task {
+                                /*
+                                 Call next
+                                 */
                                 await davinciViewModel.next(node: connector)
                             }
                         }

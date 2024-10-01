@@ -10,7 +10,7 @@
 		3A203D852BDB1A900020C995 /* PingDavinci.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5442152BCE1F2900385131 /* PingDavinci.framework */; };
 		3A203D862BDB1A900020C995 /* PingDavinci.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5442152BCE1F2900385131 /* PingDavinci.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3A203D892BDB22B00020C995 /* PingOidc.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3AB1CA252BD6F9AD003FCE3C /* PingOidc.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3A3709962BEB038200AA7B51 /* AccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3709952BEB038200AA7B51 /* AccessToken.swift */; };
+		3A3709962BEB038200AA7B51 /* AccessTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3709952BEB038200AA7B51 /* AccessTokenView.swift */; };
 		3A5441332BCDF10900385131 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5441322BCDF10900385131 /* ContentView.swift */; };
 		3A5441352BCDF10B00385131 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A5441342BCDF10B00385131 /* Assets.xcassets */; };
 		3A5441382BCDF10B00385131 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A5441372BCDF10B00385131 /* Preview Assets.xcassets */; };
@@ -32,6 +32,14 @@
 		A588D00B2BF6A20500F9052A /* PingStorage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A588CFFF2BF69F3300F9052A /* PingStorage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ECB75DC42C986312000517C9 /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB75DC32C986312000517C9 /* ConfigurationManager.swift */; };
 		ECB75DC62C986663000517C9 /* ConfigurationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB75DC52C986663000517C9 /* ConfigurationViewModel.swift */; };
+		ECFB77CD2CAC14A400FF02BC /* DavinciView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFB77C22CAC149F00FF02BC /* DavinciView.swift */; };
+		ECFB77D12CAC153300FF02BC /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFB77D02CAC152A00FF02BC /* UserInfoView.swift */; };
+		ECFB77D42CAC163500FF02BC /* StorageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFB77D32CAC163100FF02BC /* StorageView.swift */; };
+		ECFB77D62CAC165100FF02BC /* LoggerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFB77D52CAC164E00FF02BC /* LoggerView.swift */; };
+		ECFB77D82CAC168500FF02BC /* ConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFB77D72CAC168000FF02BC /* ConfigurationView.swift */; };
+		ECFB77DA2CAC16A400FF02BC /* LogoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFB77D92CAC169F00FF02BC /* LogoutView.swift */; };
+		ECFB77DC2CAC16FC00FF02BC /* LogoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFB77DB2CAC16FA00FF02BC /* LogoutViewModel.swift */; };
+		ECFB77DE2CAC172800FF02BC /* UserInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFB77DD2CAC172200FF02BC /* UserInfoViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,7 +148,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3A3709952BEB038200AA7B51 /* AccessToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessToken.swift; sourceTree = "<group>"; };
+		3A3709952BEB038200AA7B51 /* AccessTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessTokenView.swift; sourceTree = "<group>"; };
 		3A54412D2BCDF10900385131 /* PingExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PingExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A5441322BCDF10900385131 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3A5441342BCDF10B00385131 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -166,6 +174,14 @@
 		ECB75DC32C986312000517C9 /* ConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
 		ECB75DC52C986663000517C9 /* ConfigurationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationViewModel.swift; sourceTree = "<group>"; };
 		ECB75DC72C999368000517C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		ECFB77C22CAC149F00FF02BC /* DavinciView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DavinciView.swift; sourceTree = "<group>"; };
+		ECFB77D02CAC152A00FF02BC /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
+		ECFB77D32CAC163100FF02BC /* StorageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageView.swift; sourceTree = "<group>"; };
+		ECFB77D52CAC164E00FF02BC /* LoggerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerView.swift; sourceTree = "<group>"; };
+		ECFB77D72CAC168000FF02BC /* ConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationView.swift; sourceTree = "<group>"; };
+		ECFB77D92CAC169F00FF02BC /* LogoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutView.swift; sourceTree = "<group>"; };
+		ECFB77DB2CAC16FA00FF02BC /* LogoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewModel.swift; sourceTree = "<group>"; };
+		ECFB77DD2CAC172200FF02BC /* UserInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,18 +242,9 @@
 			isa = PBXGroup;
 			children = (
 				ECB75DC72C999368000517C9 /* Info.plist */,
-				ECB75DC32C986312000517C9 /* ConfigurationManager.swift */,
-				3AE945732BF27223007B3381 /* LoginUtility.swift */,
-				ECB75DC52C986663000517C9 /* ConfigurationViewModel.swift */,
-				3A5441322BCDF10900385131 /* ContentView.swift */,
-				3A8532322BE2D5D800F8619D /* LoginView.swift */,
-				3A3709952BEB038200AA7B51 /* AccessToken.swift */,
-				3AB1C9F32BD6C6F3003FCE3C /* LoginViewModel.swift */,
-				3ACD90E02BE586BC00DABCE6 /* DavinciViewModel.swift */,
-				3A8092F52BE9BB6B00AD667F /* TokenViewModel.swift */,
-				3A8092F32BE99F0F00AD667F /* InputView.swift */,
-				A588D0052BF6A0E500F9052A /* LoggerViewModel.swift */,
-				A588D0042BF6A0E500F9052A /* StorageViewModel.swift */,
+				ECFB77D22CAC157700FF02BC /* Utilities */,
+				ECFB77CF2CAC150200FF02BC /* ViewModels */,
+				ECFB77CE2CAC14F600FF02BC /* Views */,
 				3A5441342BCDF10B00385131 /* Assets.xcassets */,
 				3A5441362BCDF10B00385131 /* Preview Content */,
 			);
@@ -319,6 +326,47 @@
 				A588D0012BF69F3300F9052A /* PingStorageTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		ECFB77CE2CAC14F600FF02BC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				ECFB77D02CAC152A00FF02BC /* UserInfoView.swift */,
+				3A5441322BCDF10900385131 /* ContentView.swift */,
+				3A8532322BE2D5D800F8619D /* LoginView.swift */,
+				ECFB77C22CAC149F00FF02BC /* DavinciView.swift */,
+				3A3709952BEB038200AA7B51 /* AccessTokenView.swift */,
+				3A8092F32BE99F0F00AD667F /* InputView.swift */,
+				ECFB77D32CAC163100FF02BC /* StorageView.swift */,
+				ECFB77D52CAC164E00FF02BC /* LoggerView.swift */,
+				ECFB77D72CAC168000FF02BC /* ConfigurationView.swift */,
+				ECFB77D92CAC169F00FF02BC /* LogoutView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		ECFB77CF2CAC150200FF02BC /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				ECB75DC52C986663000517C9 /* ConfigurationViewModel.swift */,
+				3AB1C9F32BD6C6F3003FCE3C /* LoginViewModel.swift */,
+				3ACD90E02BE586BC00DABCE6 /* DavinciViewModel.swift */,
+				3A8092F52BE9BB6B00AD667F /* TokenViewModel.swift */,
+				A588D0052BF6A0E500F9052A /* LoggerViewModel.swift */,
+				A588D0042BF6A0E500F9052A /* StorageViewModel.swift */,
+				ECFB77DB2CAC16FA00FF02BC /* LogoutViewModel.swift */,
+				ECFB77DD2CAC172200FF02BC /* UserInfoViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		ECFB77D22CAC157700FF02BC /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				ECB75DC32C986312000517C9 /* ConfigurationManager.swift */,
+				3AE945732BF27223007B3381 /* LoginUtility.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -548,17 +596,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				A588D0072BF6A0E500F9052A /* LoggerViewModel.swift in Sources */,
+				ECFB77D12CAC153300FF02BC /* UserInfoView.swift in Sources */,
 				3A8092F62BE9BB6B00AD667F /* TokenViewModel.swift in Sources */,
 				3ACD90E12BE586BC00DABCE6 /* DavinciViewModel.swift in Sources */,
+				ECFB77DC2CAC16FC00FF02BC /* LogoutViewModel.swift in Sources */,
+				ECFB77DA2CAC16A400FF02BC /* LogoutView.swift in Sources */,
 				3AE945742BF27224007B3381 /* LoginUtility.swift in Sources */,
 				A588D0062BF6A0E500F9052A /* StorageViewModel.swift in Sources */,
+				ECFB77D62CAC165100FF02BC /* LoggerView.swift in Sources */,
+				ECFB77D42CAC163500FF02BC /* StorageView.swift in Sources */,
 				3A8532332BE2D5D800F8619D /* LoginView.swift in Sources */,
 				3A5441332BCDF10900385131 /* ContentView.swift in Sources */,
 				ECB75DC62C986663000517C9 /* ConfigurationViewModel.swift in Sources */,
 				3A8092F42BE99F0F00AD667F /* InputView.swift in Sources */,
 				ECB75DC42C986312000517C9 /* ConfigurationManager.swift in Sources */,
+				ECFB77CD2CAC14A400FF02BC /* DavinciView.swift in Sources */,
+				ECFB77D82CAC168500FF02BC /* ConfigurationView.swift in Sources */,
+				ECFB77DE2CAC172800FF02BC /* UserInfoViewModel.swift in Sources */,
 				3AB1C9F42BD6C6F3003FCE3C /* LoginViewModel.swift in Sources */,
-				3A3709962BEB038200AA7B51 /* AccessToken.swift in Sources */,
+				3A3709962BEB038200AA7B51 /* AccessTokenView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

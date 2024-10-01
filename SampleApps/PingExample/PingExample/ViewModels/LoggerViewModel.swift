@@ -14,8 +14,6 @@ import PingLogger
 class LoggerViewModel {
 
     func setupLogger() {
-
-
       var logger = LogManager.logger
       logger.d("Debug")
       logger.i("Info")
