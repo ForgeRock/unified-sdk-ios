@@ -29,6 +29,7 @@
 		A50966E32C4F2F4300A4E5B5 /* OidcClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50966E22C4F2F4300A4E5B5 /* OidcClientTests.swift */; };
 		A50966EF2C4FF75400A4E5B5 /* MockStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50966EE2C4FF75400A4E5B5 /* MockStorage.swift */; };
 		A50967092C50843E00A4E5B5 /* MockAPIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50967082C50843E00A4E5B5 /* MockAPIEndpoint.swift */; };
+		A5A712442CAC520500B7DD58 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A5A712432CAC520500B7DD58 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +79,7 @@
 		A50966E22C4F2F4300A4E5B5 /* OidcClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OidcClientTests.swift; sourceTree = "<group>"; };
 		A50966EE2C4FF75400A4E5B5 /* MockStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStorage.swift; sourceTree = "<group>"; };
 		A50967082C50843E00A4E5B5 /* MockAPIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIEndpoint.swift; sourceTree = "<group>"; };
+		A5A712432CAC520500B7DD58 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +132,7 @@
 		3AB1CA092BD6F99C003FCE3C /* PingOidc */ = {
 			isa = PBXGroup;
 			children = (
+				A5A712432CAC520500B7DD58 /* PrivacyInfo.xcprivacy */,
 				3AB1CA0A2BD6F99C003FCE3C /* PingOidc.h */,
 				3AB1CA322BD8823C003FCE3C /* Agent.swift */,
 				A50966B72C4C34CB00A4E5B5 /* AuthCode.swift */,
@@ -263,6 +266,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5A712442CAC520500B7DD58 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,7 +469,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.9.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pingidentity.PingOidc;
@@ -499,7 +503,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.9.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pingidentity.PingOidc;

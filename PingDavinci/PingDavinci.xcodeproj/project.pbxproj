@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3A203D7F2BDB136C0020C995 /* DaVinci.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A203D7E2BDB136C0020C995 /* DaVinci.swift */; };
-		3A203D822BDB13FF0020C995 /* PingOrchestrate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A203D812BDB13FF0020C995 /* PingOrchestrate.framework */; };
-		3A203D832BDB13FF0020C995 /* PingOrchestrate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3A203D812BDB13FF0020C995 /* PingOrchestrate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3A203D972BDB2CD70020C995 /* Oidc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A203D962BDB2CD70020C995 /* Oidc.swift */; };
 		3A203D9B2BDE155D0020C995 /* Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A203D9A2BDE155D0020C995 /* Transform.swift */; };
 		3A203D9D2BDE27290020C995 /* PingOidc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A203D9C2BDE27290020C995 /* PingOidc.framework */; };
@@ -37,6 +35,7 @@
 		A51D4CF62C65743100FE09E0 /* MockAPIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51D4CF52C65743100FE09E0 /* MockAPIEndpoint.swift */; };
 		A51D4CF82C65978300FE09E0 /* DaVinciIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51D4CF72C65978300FE09E0 /* DaVinciIntegrationTests.swift */; };
 		A51D4CFA2C6BA75000FE09E0 /* CallbackFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51D4CF92C6BA75000FE09E0 /* CallbackFactoryTests.swift */; };
+		A5A712482CAC527200B7DD58 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A5A712472CAC527200B7DD58 /* PrivacyInfo.xcprivacy */; };
 		A5CCE5E72C85E96B00349A5E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CCE5E62C85E96B00349A5E /* Constants.swift */; };
 /* End PBXBuildFile section */
 
@@ -58,7 +57,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				3A203D9E2BDE27460020C995 /* PingOidc.framework in Embed Frameworks */,
-				3A203D832BDB13FF0020C995 /* PingOrchestrate.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -96,6 +94,7 @@
 		A51D4CF52C65743100FE09E0 /* MockAPIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIEndpoint.swift; sourceTree = "<group>"; };
 		A51D4CF72C65978300FE09E0 /* DaVinciIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaVinciIntegrationTests.swift; sourceTree = "<group>"; };
 		A51D4CF92C6BA75000FE09E0 /* CallbackFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallbackFactoryTests.swift; sourceTree = "<group>"; };
+		A5A712472CAC527200B7DD58 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		A5CCE5E62C85E96B00349A5E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,7 +103,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A203D822BDB13FF0020C995 /* PingOrchestrate.framework in Frameworks */,
 				3A203D9D2BDE27290020C995 /* PingOidc.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -152,6 +150,7 @@
 		3A5441A32BCDF20700385131 /* PingDavinci */ = {
 			isa = PBXGroup;
 			children = (
+				A5A712472CAC527200B7DD58 /* PrivacyInfo.xcprivacy */,
 				3A5441A42BCDF20700385131 /* PingDavinci.h */,
 				A5CCE5E62C85E96B00349A5E /* Constants.swift */,
 				A51D4CE02C62C4BF00FE09E0 /* collector */,
@@ -315,6 +314,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5A712482CAC527200B7DD58 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -525,7 +525,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.9.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				PRODUCT_BUNDLE_IDENTIFIER = com.forgerock.ios.sdk.swiftui.PingDavinci;
@@ -560,7 +560,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.9.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				PRODUCT_BUNDLE_IDENTIFIER = com.forgerock.ios.sdk.swiftui.PingDavinci;
