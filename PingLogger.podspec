@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'PingLogger'
-  s.version          = '0.9.0-beta1'
+  s.version          = '0.9.0-beta2'
   s.summary          = 'PingLogger SDK for iOS'
   s.description      = <<-DESC
   The PingLogger SDK provides a versatile logging interface and a set of common loggers for the Ping SDKs.

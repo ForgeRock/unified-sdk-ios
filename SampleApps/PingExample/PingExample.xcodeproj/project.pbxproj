@@ -726,7 +726,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = "0.9.0-beta1";
+				MARKETING_VERSION = "0.9.0-beta2";
 				PRODUCT_BUNDLE_IDENTIFIER = com.forgerock.ios.sdk.swiftui.PingExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -757,7 +757,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = "0.9.0-beta1";
+				MARKETING_VERSION = "0.9.0-beta2";
 				PRODUCT_BUNDLE_IDENTIFIER = com.forgerock.ios.sdk.swiftui.PingExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

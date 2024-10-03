@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'PingStorage'
-  s.version          = '0.9.0-beta1'
+  s.version          = '0.9.0-beta2'
   s.summary          = 'PingStorage SDK for iOS'
   s.description      = <<-DESC
   The PingStorage SDK provides a flexible storage interface and a set of common storage solutions for the Ping SDKs.
