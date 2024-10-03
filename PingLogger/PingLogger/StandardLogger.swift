@@ -15,7 +15,7 @@ import os.log
 /// Stadard Logger to go to the iOS Console
 public class StandardLogger: Logger {
   /// SDK Version to be updated with each release
-  private let sdkVersion = "Ping SDK 0.9.0"
+  private let sdkVersion = "Ping SDK 0.9.0-beta1"
   var log: OSLog
   
   /// Initializer for StandardLogger
