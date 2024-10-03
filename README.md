@@ -8,3 +8,11 @@
 
 The PingOne Unified SDK is designed for creating mobile native apps that seamlessly integrate with the PingOne platform.
 It offers a range of APIs for user authentication, user device management, and accessing resources secured by PingOne.
+
+
+<!------------------------------------------------------------------------------------------------------------------------------------>
+<!-- LICENSE -->
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
