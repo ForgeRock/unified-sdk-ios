@@ -107,7 +107,7 @@ final class CookieModuleTests: XCTestCase {
                     return SuccessNode(session: EmptySession())
                 } else {
                     success = true
-                    return TestConnector(context: flowContext, workflow: workflow, input: json, actions: [])
+                    return TestContinueNode(context: flowContext, workflow: workflow, input: json, actions: [])
                 }
             }
         }
@@ -123,7 +123,7 @@ final class CookieModuleTests: XCTestCase {
         }
         
         let node = await workflow.start()
-        _ = await (node as? Connector)?.next()
+        _ = await (node as? ContinueNode)?.next()
         
         XCTAssertTrue(MockURLProtocol.requestHistory[1].allHTTPHeaderFields!["Cookie"]!.contains("interactionId=178ce234-afd2-4207-984e-bda28bd7042c"))
         XCTAssertTrue(MockURLProtocol.requestHistory[1].allHTTPHeaderFields!["Cookie"]!.contains("interactionToken=abc"))

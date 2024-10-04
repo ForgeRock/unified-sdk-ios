@@ -25,14 +25,14 @@ class DaVinciIntegrationTests: XCTestCase {
     override func setUp() async throws {
         try await super.setUp()
         
-        username = "demo"
-        password = "Demo1234!"
+        username = "iosclient"
+        password = "Connector123!"
         
         daVinci = DaVinci.createDaVinci { config in
             config.logger = LogManager.standard
             
             config.module(OidcModule.config) { oidcValue in
-                oidcValue.clientId = "c12743f9-08e8-4420-a624-71bbb08e9fe1"
+                oidcValue.clientId = "a9cf6b4c-8669-4dee-8b97-7c703752c04f"
                 oidcValue.scopes = ["openid", "email", "address", "phone", "profile"]
                 oidcValue.redirectUri = "org.forgerock.demo://oauth2redirect"
                 oidcValue.discoveryEndpoint = "https://auth.pingone.ca/02fb4743-189a-4bc7-9d6c-a919edfe6447/as/.well-known/openid-configuration"
@@ -47,8 +47,8 @@ class DaVinciIntegrationTests: XCTestCase {
     func testHappyPathWithPasswordCredentials() async throws {
         
         var node = await daVinci.start()
-        XCTAssertTrue(node is Connector)
-        var connector = node as! Connector
+        XCTAssertTrue(node is ContinueNode)
+        var connector = node as! ContinueNode
         
         XCTAssertEqual(connector.collectors.count, 1)
         let collector = connector.collectors[0] as! TextCollector
@@ -56,8 +56,8 @@ class DaVinciIntegrationTests: XCTestCase {
         XCTAssertEqual("Protect Payload", collector.label)
         
         node = await connector.next()
-        XCTAssertEqual((node as! Connector).collectors.count, 5)
-        connector = node as! Connector
+        XCTAssertEqual((node as! ContinueNode).collectors.count, 5)
+        connector = node as! ContinueNode
         
         (connector.collectors[0] as? TextCollector)?.value = username
         (connector.collectors[1] as? PasswordCollector)?.value = password
@@ -67,8 +67,14 @@ class DaVinciIntegrationTests: XCTestCase {
         XCTAssertTrue(connector.collectors[4] is FlowCollector)
         
         node = await connector.next()
-        XCTAssertTrue(node is SuccessNode)
-        let successNode = node as! SuccessNode
+        XCTAssertTrue(node is ContinueNode)
+        connector = node as! ContinueNode
+      
+      (connector.collectors[0] as? SubmitCollector)?.value = "click me"
+      
+       node = await connector.next()
+      
+       let successNode = node as! SuccessNode
         
         let user = successNode.user
         let userToken = await user?.token()
@@ -91,8 +97,8 @@ class DaVinciIntegrationTests: XCTestCase {
     func testHappyPathWithNoAccount() async throws {
         
         var node = await daVinci.start()
-        XCTAssertTrue(node is Connector)
-        var connector = node as! Connector
+        XCTAssertTrue(node is ContinueNode)
+        var connector = node as! ContinueNode
         
         XCTAssertEqual(connector.collectors.count, 1)
         let collector = connector.collectors[0] as! TextCollector
@@ -100,8 +106,8 @@ class DaVinciIntegrationTests: XCTestCase {
         XCTAssertEqual("Protect Payload", collector.label)
         
         node =  await connector.next()
-        XCTAssertEqual((node as! Connector).collectors.count, 5)
-        connector = node as! Connector
+        XCTAssertEqual((node as! ContinueNode).collectors.count, 5)
+        connector = node as! ContinueNode
         
         (connector.collectors[0] as? TextCollector)?.value = username
         (connector.collectors[1] as? PasswordCollector)?.value = password
@@ -110,8 +116,8 @@ class DaVinciIntegrationTests: XCTestCase {
         (connector.collectors[4] as? FlowCollector)?.value = "click me"
         
         node = await connector.next()
-        XCTAssertTrue(node is Connector)
-        connector = node as! Connector
+        XCTAssertTrue(node is ContinueNode)
+        connector = node as! ContinueNode
         
         // Registration Form
         XCTAssertEqual(6, connector.collectors.count)
@@ -126,8 +132,8 @@ class DaVinciIntegrationTests: XCTestCase {
     func testInvalidPassword() async throws {
         
         var node = await daVinci.start()
-        XCTAssertTrue(node is Connector)
-        var connector = node as! Connector
+        XCTAssertTrue(node is ContinueNode)
+        var connector = node as! ContinueNode
         
         XCTAssertEqual(connector.collectors.count, 1)
         let collector = connector.collectors[0] as! TextCollector
@@ -135,18 +141,18 @@ class DaVinciIntegrationTests: XCTestCase {
         XCTAssertEqual("Protect Payload", collector.label)
         
         node = await connector.next()
-        connector = node as! Connector
+        connector = node as! ContinueNode
         
         (connector.collectors[0] as? TextCollector)?.value = username
         (connector.collectors[1] as? PasswordCollector)?.value = "invalid"
         (connector.collectors[2] as? SubmitCollector)?.value = "click me"
         
         node = await connector.next()
-        XCTAssertTrue(node is FailureNode)
-        let failureNode = node as! FailureNode
-        XCTAssertNotNil(failureNode.input)
+        XCTAssertTrue(node is ErrorNode)
+        let errorNode = node as! ErrorNode
+        XCTAssertNotNil(errorNode.input)
         
-        XCTAssertEqual("Invalid username and/or password", failureNode.message.trimmingCharacters(in: .whitespaces))
+        XCTAssertEqual("Invalid username and/or password", errorNode.message.trimmingCharacters(in: .whitespaces))
         
         let daVinciUser = await daVinci.user()
         XCTAssertNil(daVinciUser)

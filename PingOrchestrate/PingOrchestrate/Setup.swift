@@ -47,7 +47,7 @@ public struct Setup<ModuleConfig> {
     
     /// Adds a next block to the workflow.
     /// - Parameter block: The block to be added.
-    public func next(block: @escaping (FlowContext, Connector, Request) async throws -> Request) {
+    public func next(block: @escaping (FlowContext, ContinueNode, Request) async throws -> Request) {
         workflow.nextHandlers.append(block)
     }
     

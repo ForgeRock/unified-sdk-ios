@@ -345,7 +345,7 @@ class WorkflowTest: XCTestCase {
                     return SuccessNode(session: EmptySession())
                 } else {
                     success = true
-                    return TestConnector(context: flowContext, workflow: workflow, input: json, actions: [])
+                    return TestContinueNode(context: flowContext, workflow: workflow, input: json, actions: [])
                 }
             }
         }
@@ -356,7 +356,7 @@ class WorkflowTest: XCTestCase {
         }
         
         let node = await workflow.start()
-        let connector = node as! Connector
+        let connector = node as! ContinueNode
         XCTAssertTrue(workflow === connector.workflow)
         XCTAssertEqual(json, connector.input as? [String: Bool])
         XCTAssertTrue(connector.actions.isEmpty)
@@ -421,7 +421,7 @@ class WorkflowTest: XCTestCase {
                     return SuccessNode(session: EmptySession())
                 } else {
                     success = true
-                    return TestConnector(context: flowContext, workflow: workflow, input: json, actions: [])
+                    return TestContinueNode(context: flowContext, workflow: workflow, input: json, actions: [])
                 }
             }
         }
@@ -434,7 +434,7 @@ class WorkflowTest: XCTestCase {
         workflow.sharedContext.set(key: "count", value: 0)
         
         let node = await workflow.start()
-        _ = await (node as! Connector).next()
+        _ = await (node as! ContinueNode).next()
         
         let count = (workflow.sharedContext.get(key: "count")as! Int)
         XCTAssertEqual(10, count)
@@ -452,8 +452,8 @@ class WorkflowTest: XCTestCase {
         }
         
         let node = await workflow.start()
-        XCTAssertTrue(node is ErrorNode)
-        XCTAssertEqual((node as! ErrorNode).cause.localizedDescription, "Failed to initialize")
+        XCTAssertTrue(node is FailureNode)
+        XCTAssertEqual((node as! FailureNode).cause.localizedDescription, "Failed to initialize")
     }
     
     func testStartStateFunctionThrowsException() async throws {
@@ -467,8 +467,8 @@ class WorkflowTest: XCTestCase {
         }
         
         let node = await workflow.start()
-        XCTAssertTrue(node is ErrorNode)
-        XCTAssertEqual((node as! ErrorNode).cause.localizedDescription, "Failed to initialize")
+        XCTAssertTrue(node is FailureNode)
+        XCTAssertEqual((node as! FailureNode).cause.localizedDescription, "Failed to initialize")
     }
     
     func testResponseStateFunctionThrowsException() async throws {
@@ -487,8 +487,8 @@ class WorkflowTest: XCTestCase {
         }
         
         let node = await workflow.start()
-        XCTAssertTrue(node is ErrorNode)
-        XCTAssertEqual((node as! ErrorNode).cause.localizedDescription, "Failed to initialize")
+        XCTAssertTrue(node is FailureNode)
+        XCTAssertEqual((node as! FailureNode).cause.localizedDescription, "Failed to initialize")
     }
     
     func testTransformStateFunctionThrowsException() async throws {
@@ -508,8 +508,8 @@ class WorkflowTest: XCTestCase {
         }
         
         let node = await workflow.start()
-        XCTAssertTrue(node is ErrorNode)
-        XCTAssertEqual((node as! ErrorNode).cause.localizedDescription, "Failed to initialize")
+        XCTAssertTrue(node is FailureNode)
+        XCTAssertEqual((node as! FailureNode).cause.localizedDescription, "Failed to initialize")
     }
     
     func testNextStateFunctionThrowsException() async throws {
@@ -527,7 +527,7 @@ class WorkflowTest: XCTestCase {
             }
             
             module.transform { flowContext,_ in
-                TestConnector(context: flowContext, workflow: workflow, input: json, actions: [])
+              TestContinueNode(context: flowContext, workflow: workflow, input: json, actions: [])
             }
         }
         
@@ -537,9 +537,9 @@ class WorkflowTest: XCTestCase {
         }
         
         let node = await workflow.start()
-        let next = await (node as? Connector)?.next()
-        XCTAssertTrue(next is ErrorNode)
-        XCTAssertEqual((next as! ErrorNode).cause.localizedDescription, "Failed to initialize")
+        let next = await (node as? ContinueNode)?.next()
+        XCTAssertTrue(next is FailureNode)
+        XCTAssertEqual((next as! FailureNode).cause.localizedDescription, "Failed to initialize")
     }
     
     func testNodeStateFunctionThrowsException() async throws {
@@ -557,7 +557,7 @@ class WorkflowTest: XCTestCase {
             }
             
             module.transform { flowContext,_ in
-                TestConnector(context: flowContext, workflow: workflow, input: json, actions: [])
+              TestContinueNode(context: flowContext, workflow: workflow, input: json, actions: [])
             }
         }
         
@@ -567,8 +567,8 @@ class WorkflowTest: XCTestCase {
         }
         
         let node = await workflow.start()
-        XCTAssertTrue(node is ErrorNode)
-        XCTAssertEqual((node as! ErrorNode).cause.localizedDescription, "Failed to initialize")
+        XCTAssertTrue(node is FailureNode)
+        XCTAssertEqual((node as! FailureNode).cause.localizedDescription, "Failed to initialize")
     }
     
     func testSuccessStateFunctionThrowsException() async throws {
@@ -595,8 +595,8 @@ class WorkflowTest: XCTestCase {
         }
         
         let node = await workflow.start()
-        XCTAssertTrue(node is ErrorNode)
-        XCTAssertEqual((node as! ErrorNode).cause.localizedDescription, "Failed to initialize")
+      XCTAssertTrue(node is FailureNode)
+        XCTAssertEqual((node as! FailureNode).cause.localizedDescription, "Failed to initialize")
     }
     
     func testExecutionFailure() async {
@@ -606,7 +606,7 @@ class WorkflowTest: XCTestCase {
         
         let dummy = Module.of({CustomHeaderConfig()}) { module in
             module.transform {_,_ in
-                return FailureNode(input: [:], message: "Invalid request")
+              return ErrorNode(input: [:], message: "Invalid request")
             }
         }
         
@@ -616,7 +616,7 @@ class WorkflowTest: XCTestCase {
         }
         
         let node = await workflow.start()
-        let failure = node as! FailureNode
+        let failure = node as! ErrorNode
         XCTAssertEqual("Invalid request", failure.message)
         XCTAssertTrue(failure.input.isEmpty)
     }
