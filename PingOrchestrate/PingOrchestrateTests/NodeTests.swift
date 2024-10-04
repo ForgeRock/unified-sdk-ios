@@ -22,7 +22,7 @@ final class NodeTests: XCTestCase {
         
         mockWorkflow.nextReturnValue = mockNode
         
-        let connector = TestConnector(context: mockContext, workflow: mockWorkflow, input: [:], actions: [])
+       let connector = TestNextNode(context: mockContext, workflow: mockWorkflow, input: [:], actions: [])
         
         let nextNode = await connector.next()
         XCTAssertTrue(nextNode as? NodeMock === mockNode)
@@ -30,7 +30,7 @@ final class NodeTests: XCTestCase {
     
     func testConnectorCloseShouldCloseAllCloseableActions() {
         let closeableAction = TestAction()
-        let connector = TestConnector(context: FlowContextMock(flowContext: SharedContext()), workflow: WorkflowMock(config: WorkflowConfig()), input: [:], actions: [closeableAction])
+        let connector = TestNextNode(context: FlowContextMock(flowContext: SharedContext()), workflow: WorkflowMock(config: WorkflowConfig()), input: [:], actions: [closeableAction])
         
         connector.close()
         
@@ -41,7 +41,7 @@ final class NodeTests: XCTestCase {
 // Supporting Test Classes
 class WorkflowMock: Workflow {
     var nextReturnValue: Node?
-    override func next(_ context: FlowContext, _ current: Connector) async -> Node {
+  override func next(_ context: FlowContext, _ current: NextNode) async -> Node {
         return nextReturnValue ?? NodeMock()
     }
 }
@@ -50,7 +50,7 @@ class FlowContextMock: FlowContext {}
 
 class NodeMock: Node {}
 
-class TestConnector: Connector {
+class TestNextNode: NextNode {
     override func asRequest() -> Request {
         return RequestMock(urlString: "https://openam.example.com")
     }

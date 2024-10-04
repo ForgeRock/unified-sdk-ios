@@ -16,7 +16,7 @@ public protocol Collector: Action, Identifiable {
     init(with json: [String: Any])
 }
 
-extension Connector {
+ extension NextNode {
     public var collectors: [any Collector] {
         return actions.compactMap { $0 as? (any Collector) }
     }
