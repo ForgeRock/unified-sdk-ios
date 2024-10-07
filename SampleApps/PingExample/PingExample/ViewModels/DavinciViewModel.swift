@@ -78,7 +78,7 @@ class DavinciViewModel: ObservableObject {
              Example:
              let next = await connector.next()
              */
-            let next = await connector.next()
+           
             await MainActor.run {
                 self.data = StateNode(currentNode: next, previousNode: node)
                 isLoading = false

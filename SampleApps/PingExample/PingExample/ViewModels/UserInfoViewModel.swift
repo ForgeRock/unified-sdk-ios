@@ -23,7 +23,7 @@ class UserInfoViewModel: ObservableObject {
     
     func fetchUserInfo() async {
         /*
-         //TODO: Integration Point. STEP 6
+         //TODO: Integration Point. STEP 7
          Use the ConfigurationManager shared class to retrieve the user info.
          The ViewModel will save that in the `self.userInfo` variable and
          the view will display the value.
