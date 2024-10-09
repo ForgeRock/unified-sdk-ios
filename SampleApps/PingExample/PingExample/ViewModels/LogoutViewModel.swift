@@ -22,7 +22,7 @@ class LogoutViewModel: ObservableObject {
          
          Example use: "await ConfigurationManager.shared.davinci?.user()?.logout()"
          */
-        
+        await ConfigurationManager.shared.davinci?.user()?.logout()
         await MainActor.run {
             logout =  "Logout completed"
         }

@@ -42,6 +42,15 @@ class ConfigurationManager: ObservableObject {
                  }
              }
              */
+            self.davinci = DaVinci.createDaVinci { config in
+                //config.debug = true
+                config.module(OidcModule.config) { oidcValue in
+                    oidcValue.clientId = currentConfiguration.clientId
+                    oidcValue.scopes = Set(currentConfiguration.scopes)
+                    oidcValue.redirectUri = currentConfiguration.redirectUri
+                    oidcValue.discoveryEndpoint = currentConfiguration.discoveryEndpoint
+                }
+            }
         }
     }
     

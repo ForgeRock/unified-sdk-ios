@@ -31,7 +31,7 @@ class UserInfoViewModel: ObservableObject {
          Example use: "let userInfo = await ConfigurationManager.shared.davinci?.user()?.userinfo(cache: false)"
          */
         
-        
+        let userInfo = await ConfigurationManager.shared.davinci?.user()?.userinfo(cache: false)
         switch userInfo {
         case .success(let userInfoDictionary):
             await MainActor.run {

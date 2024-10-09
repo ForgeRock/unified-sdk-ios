@@ -30,7 +30,7 @@ class TokenViewModel: ObservableObject {
          
          Example use: "let token = await ConfigurationManager.shared.davinci?.user()?.token()"
          */
-        
+        let token = await ConfigurationManager.shared.davinci?.user()?.token()
         switch token {
         case .success(let accessToken):
             await MainActor.run {

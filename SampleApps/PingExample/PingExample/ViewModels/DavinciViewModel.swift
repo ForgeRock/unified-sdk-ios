@@ -47,7 +47,7 @@ class DavinciViewModel: ObservableObject {
          Example: let node = await ConfigurationManager.shared.davinci?.start()
          */
         
-        
+        let node = await ConfigurationManager.shared.davinci?.start()
         if let connector = node as? Connector {
             let node = await connector.next() // <-- In the first step, calls DaVinci and starts the flow. On next steps, submits and returns the next `Connector`.
             await MainActor.run {
@@ -78,7 +78,7 @@ class DavinciViewModel: ObservableObject {
              Example:
              let next = await connector.next()
              */
-           
+            let next = await connector.next()
             await MainActor.run {
                 self.data = StateNode(currentNode: next, previousNode: node)
                 isLoading = false
