@@ -147,20 +147,20 @@ final class DaVinciTests: XCTestCase {
         }
         
         var node = await daVinci.start()
-        XCTAssertTrue(node is Connector)
-        let connector = node as! Connector
-        XCTAssertEqual(connector.collectors.count, 5)
+        XCTAssertTrue(node is NextNode)
+        let nextNode = node as! NextNode
+        XCTAssertEqual(nextNode.collectors.count, 5)
         
-        XCTAssertEqual(connector.id, "cq77vwelou")
-        XCTAssertEqual(connector.name, "Username/Password Form")
-        XCTAssertEqual(connector.description, "Test Description")
-        XCTAssertEqual(connector.category, "CUSTOM_HTML")
+        XCTAssertEqual(nextNode.id, "cq77vwelou")
+        XCTAssertEqual(nextNode.name, "Username/Password Form")
+        XCTAssertEqual(nextNode.description, "Test Description")
+        XCTAssertEqual(nextNode.category, "CUSTOM_HTML")
         
-        (connector.collectors[0] as? TextCollector)?.value = "My First Name"
-        (connector.collectors[1] as? PasswordCollector)?.value = "My Password"
-        (connector.collectors[2] as? SubmitCollector)?.value = "click me"
+        (nextNode.collectors[0] as? TextCollector)?.value = "My First Name"
+        (nextNode.collectors[1] as? PasswordCollector)?.value = "My Password"
+        (nextNode.collectors[2] as? SubmitCollector)?.value = "click me"
         
-        node = await connector.next()
+        node = await nextNode.next()
         XCTAssertTrue(node is SuccessNode)
         
         let authorizeReq = MockURLProtocol.requestHistory[1]
@@ -245,8 +245,8 @@ final class DaVinciTests: XCTestCase {
         }
         
         var node = await daVinci.start()
-        XCTAssertTrue(node is Connector)
-        let connector = node as! Connector
+        XCTAssertTrue(node is NextNode)
+        let connector = node as! NextNode
         (connector.collectors[0] as? TextCollector)?.value = "My First Name"
         (connector.collectors[1] as? PasswordCollector)?.value = "My Password"
         (connector.collectors[2] as? SubmitCollector)?.value = "click me"
@@ -290,8 +290,8 @@ final class DaVinciTests: XCTestCase {
         }
         
         var node = await daVinci.start()
-        XCTAssertTrue(node is Connector)
-        let connector = node as! Connector
+        XCTAssertTrue(node is NextNode)
+        let connector = node as! NextNode
         (connector.collectors[0] as? TextCollector)?.value = "My First Name"
         (connector.collectors[1] as? PasswordCollector)?.value = "My Password"
         (connector.collectors[2] as? SubmitCollector)?.value = "click me"

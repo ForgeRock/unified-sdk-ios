@@ -24,7 +24,7 @@ public let davinciStage = DaVinci.createDaVinci { config in
   }
 }
 
-public let davinci = DaVinci.createDaVinci { config in
+public let davinciProd = DaVinci.createDaVinci { config in
   //config.debug = true
   
   config.module(OidcModule.config) { oidcValue in
@@ -34,6 +34,9 @@ public let davinci = DaVinci.createDaVinci { config in
     oidcValue.discoveryEndpoint = "https://auth.pingone.ca/02fb4743-189a-4bc7-9d6c-a919edfe6447/as/.well-known/openid-configuration"
   }
 }
+
+// Change this to Prod/Stage
+public let davinci = davinciProd
 
 class DavinciViewModel: ObservableObject {
   
@@ -57,18 +60,8 @@ class DavinciViewModel: ObservableObject {
     
     let node = await davinci.start()
     
-    if let connector = node as? Connector {
-      let node = await connector.next()
-      await MainActor.run {
-        self.data = StateNode(currentNode: node, previousNode: node)
-      }
-    } else {
-      await MainActor.run {
-        self.data = StateNode(currentNode: node, previousNode: node)
-      }
-    }
-    
     await MainActor.run {
+      self.data = StateNode(currentNode: node, previousNode: node)
       isLoading = false
     }
     
@@ -78,8 +71,8 @@ class DavinciViewModel: ObservableObject {
     await MainActor.run {
       isLoading = true
     }
-    if let connector = node as? Connector {
-      let next = await connector.next()
+    if let nextNode = node as? NextNode {
+      let next = await nextNode.next()
       await MainActor.run {
         self.data = StateNode(currentNode: next, previousNode: node)
         isLoading = false
