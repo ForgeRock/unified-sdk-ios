@@ -18,9 +18,7 @@ import Observation
 class LoginViewModel: ObservableObject {
     
     @Published public var isLoading: Bool = false
-  
     @ObservedObject var davinciViewModel: DavinciViewModel
-    
     
     init(
          isLoading: Bool = false,

@@ -1,5 +1,5 @@
-//
-//  AccessToken.swift
+// 
+//  UserInfoView.swift
 //  PingExample
 //
 //  Copyright (c) 2024 Ping Identity. All rights reserved.
@@ -10,23 +10,8 @@
 
 import SwiftUI
 
-struct AccessTokenView: View {
-    
-    @StateObject var accessToken = TokenViewModel()
-    
-    var body: some View {
-        VStack {
-            
-            TextEditor(text: $accessToken.accessToken)
-                            .foregroundStyle(.secondary)
-                            .padding(.horizontal)
-                            .navigationTitle("AccessToken")
-        }
-        
-    }
-}
-
 struct UserInfoView: View {
+    @Binding var path: [String]
     
     @StateObject var vm = UserInfoViewModel()
     
@@ -37,6 +22,11 @@ struct UserInfoView: View {
                         .padding(.horizontal)
                         .navigationTitle("User Info")
         
-        
+        NextButton(title: "Procced to logout") {
+            Task {
+                await ConfigurationManager.shared.davinci?.user()?.logout()
+                path.removeLast()
+            }
+        }
     }
 }
