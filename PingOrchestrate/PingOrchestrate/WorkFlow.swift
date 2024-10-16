@@ -50,7 +50,7 @@ public class Workflow {
     
     internal var initHandlers =  [() async throws -> Void]()
     internal var startHandlers = [(FlowContext, Request) async throws -> Request]()
-    internal var nextHandlers = [(FlowContext, Connector, Request) async throws -> Request]()
+    internal var nextHandlers = [(FlowContext, ContinueNode, Request) async throws -> Request]()
     internal var responseHandlers = [(FlowContext, Response) async throws -> Void]()
     internal var nodeHandlers = [(FlowContext, Node) async throws -> Node]()
     internal var successHandlers = [(FlowContext, SuccessNode) async throws -> SuccessNode]()
@@ -116,7 +116,7 @@ public class Workflow {
             return try await start(request: Request())
         }
         catch {
-            return ErrorNode(cause: error)
+          return FailureNode(cause: error)
         }
     }
     
@@ -163,9 +163,9 @@ public class Workflow {
     /// Processes the next node in the workflow.
     /// - Parameters:
     ///   - context: The context of the flow.
-    ///   - current: The current connector.
+    ///   - current: The current ContinueNode.
     /// - Returns: The resulting Node after processing the next step.
-    public func next(_ context: FlowContext, _ current: Connector) async -> Node {
+    public func next(_ context: FlowContext, _ current: ContinueNode) async -> Node {
         do {
             config.logger.i("Next...")
             let initialRequest = current.asRequest()
@@ -182,7 +182,7 @@ public class Workflow {
             return try await next(context, node)
         }
         catch {
-            return ErrorNode(cause: error)
+          return FailureNode(cause: error)
         }
     }
     

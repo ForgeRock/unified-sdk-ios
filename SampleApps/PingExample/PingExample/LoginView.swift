@@ -24,23 +24,31 @@ struct DavinciView: View {
         VStack {
           Spacer()
           switch viewmodel.data.currentNode {
-          case let connector as Connector:
-            ConnectorView(viewmodel: viewmodel, connector: connector)
+          case let nextNode as ContinueNode:
+            ConnectorView(viewmodel: viewmodel, nextNode: nextNode)
           case is SuccessNode:
             VStack{}.onAppear {
               path.removeLast()
               path.append("Token")
             }
-          case let errorNode as ErrorNode:
-            if let connector = viewmodel.data.previousNode as? Connector {
-              ConnectorView(viewmodel: viewmodel, connector: connector)
-            }
-            ErrorView(name: errorNode.cause.localizedDescription)
           case let failureNode as FailureNode:
-            if let connector = viewmodel.data.previousNode as? Connector {
-              ConnectorView(viewmodel: viewmodel, connector: connector)
+            if let nextNode = viewmodel.data.previousNode as? ContinueNode {
+              ConnectorView(viewmodel: viewmodel, nextNode: nextNode)
             }
-            ErrorView(name: failureNode.message)
+            
+            let apiError = failureNode.cause as? ApiError
+            switch apiError {
+            case .error(_, _, let message):
+              ErrorView(name: message)
+            default:
+              ErrorView(name: "unknown error")
+            }
+            
+          case let errorNode as ErrorNode:
+            if let nextNode = viewmodel.data.previousNode as? ContinueNode {
+              ConnectorView(viewmodel: viewmodel, nextNode: nextNode)
+            }
+            ErrorView(name: errorNode.message)
           default:
             EmptyView()
           }
@@ -66,16 +74,16 @@ struct DavinciView: View {
 struct ConnectorView: View {
   
   @ObservedObject var viewmodel: DavinciViewModel
-  public var connector: Connector
+  public var nextNode: ContinueNode
   
   var body: some View {
     VStack {
       Image("Logo").resizable().scaledToFill().frame(width: 100, height: 100)
         .padding(.vertical, 32)
-      HeaderView(name: connector.name)
+      HeaderView(name: nextNode.name)
       NewLoginView(
         davinciViewModel: viewmodel,
-        connector: connector, collectorsList: connector.collectors)
+        nextNode: nextNode, collectorsList: nextNode.collectors)
     }
   }
 }
@@ -105,7 +113,7 @@ struct NewLoginView: View {
   // MARK: - Propertiers
   @ObservedObject var davinciViewModel: DavinciViewModel
   
-  public var connector: Connector
+  public var nextNode: ContinueNode
   
   public var collectorsList: Collectors
   
@@ -128,7 +136,7 @@ struct NewLoginView: View {
           if let submitButton = field as? SubmitCollector {
             InputButton(title: submitButton.label, field: submitButton) {
               Task {
-                await davinciViewModel.next(node: connector)
+                await davinciViewModel.next(node: nextNode)
               }
             }
           }
@@ -140,7 +148,7 @@ struct NewLoginView: View {
           Button(action: {
             flowButton.value = "action"
             Task {
-              await davinciViewModel.next(node: connector)
+              await davinciViewModel.next(node: nextNode)
             }
           }) {
             Text(flowButton.label)

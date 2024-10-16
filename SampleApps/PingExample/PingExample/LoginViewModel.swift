@@ -32,8 +32,8 @@ class LoginViewModel: ObservableObject {
     
     public func next() async {
         isLoading = true
-        if let connector = davinciViewModel.data.currentNode as? Connector  {
-            await davinciViewModel.next(node: connector)
+        if let nextNode = davinciViewModel.data.currentNode as? ContinueNode  {
+            await davinciViewModel.next(node: nextNode)
             isLoading = false
         }
     }

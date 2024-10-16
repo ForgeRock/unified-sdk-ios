@@ -15,7 +15,7 @@ struct InputView: View {
     @State var text: String = ""
     let placeholderString: String
     var secureField: Bool = false
-  let field: any Collector
+    let field: any Collector
     
     var body: some View {
         VStack(alignment: .leading) {

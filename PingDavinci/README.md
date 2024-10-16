@@ -36,7 +36,7 @@ let daVinci = DaVinci.createDaVinci { config in
             }
         }
 var node = await daVinci.start()
-node = await (node as! Connector).next()
+node = await (node as! ContinueNode).next()
 ```
 
 The `DaVinci` depends on `PingOidc` module. It discovers the OIDC endpoints with `discoveryEndpoint` attribute.
@@ -64,7 +64,7 @@ let node = await daVinci.start() //Start the flow
 
 //Determine the Node Type
 switch (node) {
-case is Connector: do {}
+case is ContinueNode: do {}
 case is ErrorNode: do {}
 case is FailureNode: do {}
 case is SuccessNode: do {}
@@ -73,13 +73,13 @@ case is SuccessNode: do {}
 
 | Node Type  | Description                                                                                               |
 |------------|:----------------------------------------------------------------------------------------------------------|
-| Connector  | In the middle of the flow, call ```node.next``` to move to next Node in the flow                          |
-| ErrorNode  | Unexpected Error, e.g Network, parsing ```node.cause``` to retrieve the cause of the error                |
-| FailureNode| Bad Request from the server, e.g Invalid Password, OTP, username ```node.message``` for the error message |
+| ContinueNode  | In the middle of the flow, call ```node.next``` to move to next Node in the flow                          |
+| FailureNode  | Unexpected Error, e.g Network, parsing ```node.cause``` to retrieve the cause of the error                |
+| ErrorNode| Bad Request from the server, e.g Invalid Password, OTP, username ```node.message``` for the error message |
 | SuccessNode| Authentication successful ```node.session``` to retrieve the session                                      |
 
 ### Provide input
-For `Connector` Node, you can access list of Collector with `node.collectors` and provide input to
+For `ContinueNode` Node, you can access list of Collector with `node.collectors` and provide input to
 the `Collector`.
 Currently, there are, `TextCollector`, `PasswordCollector`, `SubmitCollector`, `FlowCollector`, but more will be added in the future, such as `Fido`,
 `SocialLoginCollector`, etc...
@@ -105,24 +105,24 @@ let next = node.next()
 
 ### Error Handling
 
-For `ErrorNode` Node, you can retrieve the cause of the error by using `node.cause`. The `cause` is an `Error` instance,
+For `FailureNode` Node, you can retrieve the cause of the error by using `node.cause`. The `cause` is an `Error` instance,
 when receiving an error, you cannot continue the Flow, you may want to display a generic message to the user, and report
 the issue to the Support team.
 The Error may include Network issue, parsing issue, API Error (Server response other that 2xx and 400) and other unexpected issues.
 
-For `FailureNode` Node, you can retrieve the error message by using `node.message`. The `message` is a `String` object,
-when receiving a failure, you can continue the Flow with previous `Connector` Node, but you may want to display the error message to the user.
+For `ErrorNode` Node, you can retrieve the error message by using `node.message`. The `message` is a `String` object,
+when receiving a failure, you can continue the Flow with previous `ContinueNode` Node, but you may want to display the error message to the user.
 e.g "Username/Password is incorrect", "OTP is invalid", etc...
 ```swift
 let node = await daVinci.start() //Start the flow
 
 //Determine the Node Type
 switch (node) {
-case is Connector: do {}
-case is ErrorNode:
-    (node as! ErrorNode).cause //Retrieve the cause of the error
+case is ContinueNode: do {}
 case is FailureNode:
-    (node as! FailureNode).message //Retrieve the error message
+    (node as! FailureNode).cause //Retrieve the cause of the Failure
+case is ErrorNode:
+    (node as! ErrorNode).message //Retrieve the error message
 case is SuccessNode: do {}
 }
 ```
@@ -162,7 +162,7 @@ let next = await daVinci.start()
 //Update the state
 state = next
 
-func next(node: Connector) {
+func next(node: ContinueNode) {
    val next = await node.next()
    state = next
     
@@ -173,19 +173,16 @@ View
 ```swift
 if let node = state.node {
     switch node {
-    case is Connector:
-        // Handle Connector case
+    case is ContinueNode:
+        // Handle ContinueNode case
         break
-    case is Empty:
-        // Handle Empty case
-        break
-    case is Error:
+    case is ErrorNode:
         // Handle Error case
         break
-    case is Failure:
+    case is FailureNode:
         // Handle Failure case
         break
-    case is Success:
+    case is SuccessNode:
         // Handle Success case
         break
     default:

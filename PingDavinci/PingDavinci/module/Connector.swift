@@ -10,8 +10,8 @@
 
 import PingOrchestrate
 
-/// Extension to get the id of a Connector.
-extension Connector {
+/// Extension to get the id of a ContinueNode.
+extension ContinueNode {
     public var id: String {
         return (self as? DaVinciConnector)?.idValue ?? ""
     }
@@ -32,11 +32,11 @@ extension Connector {
 
 
 /// Class representing a DaVinciConnector.
-///- property context: The FlowContext of the connector.
-///- property workflow: The Workflow of the connector.
-///- property input: The input JsonObject of the connector.
-///- property collectors: The collectors of the connector.
-class DaVinciConnector: Connector {
+///- property context: The FlowContext of the ContinueNode.
+///- property workflow: The Workflow of the ContinueNode.
+///- property input: The input JsonObject of the ContinueNode.
+///- property collectors: The collectors of the ContinueNode.
+class DaVinciConnector: ContinueNode {
     
     init(context: FlowContext, workflow: Workflow, input: [String: Any], collectors: Collectors) {
         super.init(context: context, workflow: workflow, input: input, actions: collectors)

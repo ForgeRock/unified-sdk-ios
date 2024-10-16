@@ -31,7 +31,7 @@ public class OidcModule {
             daVinciFlow.sharedContext.set(key: SharedContext.Keys.oidcClientConfigKey, value: config)
             //Override the agent setting
             config.updateAgent(DefaultAgent())
-            try? await config.oidcInitialize()
+            try await config.oidcInitialize()
         }
         
         // Starts the module.

@@ -15,22 +15,22 @@ import XCTest
 
 final class NodeTests: XCTestCase {
     
-    func testConnectorNextShouldReturnNextNodeInWorkflow() async {
+    func testConnectorNextShouldReturnContinueNodeInWorkflow() async {
         let mockWorkflow = WorkflowMock(config: WorkflowConfig())
         let mockContext = FlowContextMock(flowContext: SharedContext())
         let mockNode = NodeMock()
         
         mockWorkflow.nextReturnValue = mockNode
         
-        let connector = TestConnector(context: mockContext, workflow: mockWorkflow, input: [:], actions: [])
+       let connector = TestContinueNode(context: mockContext, workflow: mockWorkflow, input: [:], actions: [])
         
-        let nextNode = await connector.next()
-        XCTAssertTrue(nextNode as? NodeMock === mockNode)
+        let continueNode = await connector.next()
+        XCTAssertTrue(continueNode as? NodeMock === mockNode)
     }
     
     func testConnectorCloseShouldCloseAllCloseableActions() {
         let closeableAction = TestAction()
-        let connector = TestConnector(context: FlowContextMock(flowContext: SharedContext()), workflow: WorkflowMock(config: WorkflowConfig()), input: [:], actions: [closeableAction])
+        let connector = TestContinueNode(context: FlowContextMock(flowContext: SharedContext()), workflow: WorkflowMock(config: WorkflowConfig()), input: [:], actions: [closeableAction])
         
         connector.close()
         
@@ -41,7 +41,7 @@ final class NodeTests: XCTestCase {
 // Supporting Test Classes
 class WorkflowMock: Workflow {
     var nextReturnValue: Node?
-    override func next(_ context: FlowContext, _ current: Connector) async -> Node {
+  override func next(_ context: FlowContext, _ current: ContinueNode) async -> Node {
         return nextReturnValue ?? NodeMock()
     }
 }
@@ -50,7 +50,7 @@ class FlowContextMock: FlowContext {}
 
 class NodeMock: Node {}
 
-class TestConnector: Connector {
+class TestContinueNode: ContinueNode {
     override func asRequest() -> Request {
         return RequestMock(urlString: "https://openam.example.com")
     }

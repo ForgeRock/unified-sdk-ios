@@ -13,6 +13,7 @@ import PingDavinci
 import PingOidc
 import PingOrchestrate
 
+
 public let davinciStage = DaVinci.createDaVinci { config in
   //config.debug = true
   
@@ -35,7 +36,7 @@ public let davinciTest = DaVinci.createDaVinci { config in
   }
 }
 
-public let davinci = DaVinci.createDaVinci { config in
+public let davinciProd = DaVinci.createDaVinci { config in
   //config.debug = true
   
   config.module(OidcModule.config) { oidcValue in
@@ -45,6 +46,9 @@ public let davinci = DaVinci.createDaVinci { config in
     oidcValue.discoveryEndpoint = "https://auth.pingone.com/4b69e4ad-03bd-4203-89bb-0504221d9a1c/as/.well-known/openid-configuration"
   }
 }
+
+// Change this to Prod/Stage
+public let davinci = davinciProd
 
 class DavinciViewModel: ObservableObject {
   
@@ -68,18 +72,8 @@ class DavinciViewModel: ObservableObject {
     
     let node = await davinci.start()
     
-    if let connector = node as? Connector {
-      let node = await connector.next()
-      await MainActor.run {
-        self.data = StateNode(currentNode: node, previousNode: node)
-      }
-    } else {
-      await MainActor.run {
-        self.data = StateNode(currentNode: node, previousNode: node)
-      }
-    }
-    
     await MainActor.run {
+      self.data = StateNode(currentNode: node, previousNode: node)
       isLoading = false
     }
     
@@ -89,8 +83,8 @@ class DavinciViewModel: ObservableObject {
     await MainActor.run {
       isLoading = true
     }
-    if let connector = node as? Connector {
-      let next = await connector.next()
+    if let nextNode = node as? ContinueNode {
+      let next = await nextNode.next()
       await MainActor.run {
         self.data = StateNode(currentNode: next, previousNode: node)
         isLoading = false
