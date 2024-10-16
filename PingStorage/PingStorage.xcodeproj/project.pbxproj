@@ -17,6 +17,7 @@
 		A57613952C45ABA200EC0E3F /* Encryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57613942C45ABA200EC0E3F /* Encryptor.swift */; };
 		A57613972C45ACFA00EC0E3F /* SecuredKeyEncryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57613962C45ACFA00EC0E3F /* SecuredKeyEncryptor.swift */; };
 		A588CFA72BF654FA00F9052A /* CustomStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A588CFA62BF654FA00F9052A /* CustomStorageTests.swift */; };
+		A5A712422CAC51D800B7DD58 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A5A712412CAC51D700B7DD58 /* PrivacyInfo.xcprivacy */; };
 		A5A797052BE1782F004D0F2D /* PingStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5A796FA2BE1782E004D0F2D /* PingStorage.framework */; };
 		A5A7970B2BE1782F004D0F2D /* PingStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = A5A796FD2BE1782E004D0F2D /* PingStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A5A7971E2BE17C95004D0F2D /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A7971D2BE17C95004D0F2D /* Storage.swift */; };
@@ -46,6 +47,7 @@
 		A57613942C45ABA200EC0E3F /* Encryptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encryptor.swift; sourceTree = "<group>"; };
 		A57613962C45ACFA00EC0E3F /* SecuredKeyEncryptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecuredKeyEncryptor.swift; sourceTree = "<group>"; };
 		A588CFA62BF654FA00F9052A /* CustomStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStorageTests.swift; sourceTree = "<group>"; };
+		A5A712412CAC51D700B7DD58 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		A5A796FA2BE1782E004D0F2D /* PingStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PingStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5A796FD2BE1782E004D0F2D /* PingStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PingStorage.h; sourceTree = "<group>"; };
 		A5A797042BE1782F004D0F2D /* PingStorageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PingStorageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,6 +97,7 @@
 		A5A796FC2BE1782E004D0F2D /* PingStorage */ = {
 			isa = PBXGroup;
 			children = (
+				A5A712412CAC51D700B7DD58 /* PrivacyInfo.xcprivacy */,
 				A5A796FD2BE1782E004D0F2D /* PingStorage.h */,
 				A57613942C45ABA200EC0E3F /* Encryptor.swift */,
 				A5A7974C2BE33279004D0F2D /* KeychainStorage.swift */,
@@ -213,6 +216,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5A712422CAC51D800B7DD58 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,7 +414,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = "0.9.0-beta2";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pingidentity.PingStorage;
@@ -443,7 +447,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = "0.9.0-beta2";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pingidentity.PingStorage;

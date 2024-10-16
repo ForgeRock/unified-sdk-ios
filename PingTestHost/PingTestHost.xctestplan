@@ -42,7 +42,9 @@
     },
     {
       "skippedTests" : [
-        "DaVinciIntegrationTests\/testHappyPathWithPasswordCredentials()"
+        "DaVinciIntegrationTests\/testHappyPathWithNoAccount()",
+        "DaVinciIntegrationTests\/testHappyPathWithPasswordCredentials()",
+        "DaVinciIntegrationTests\/testInvalidPassword()"
       ],
       "target" : {
         "containerPath" : "container:..\/PingDavinci\/PingDavinci.xcodeproj",

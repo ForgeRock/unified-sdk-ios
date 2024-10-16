@@ -39,6 +39,7 @@
 		A51D4D292C6C1EA700FE09E0 /* CookieModuleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51D4D282C6C1EA700FE09E0 /* CookieModuleTests.swift */; };
 		A51D4D2B2C6C222600FE09E0 /* SessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51D4D2A2C6C222600FE09E0 /* SessionTests.swift */; };
 		A51D4D2D2C6C260400FE09E0 /* WorkflowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51D4D2C2C6C260400FE09E0 /* WorkflowTests.swift */; };
+		A5A712462CAC523B00B7DD58 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A5A712452CAC523B00B7DD58 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,7 @@
 		A51D4D282C6C1EA700FE09E0 /* CookieModuleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookieModuleTests.swift; sourceTree = "<group>"; };
 		A51D4D2A2C6C222600FE09E0 /* SessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTests.swift; sourceTree = "<group>"; };
 		A51D4D2C2C6C260400FE09E0 /* WorkflowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowTests.swift; sourceTree = "<group>"; };
+		A5A712452CAC523B00B7DD58 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +147,7 @@
 		3A5441762BCDF1D900385131 /* PingOrchestrate */ = {
 			isa = PBXGroup;
 			children = (
+				A5A712452CAC523B00B7DD58 /* PrivacyInfo.xcprivacy */,
 				3A5441772BCDF1D900385131 /* PingOrchestrate.h */,
 				3A203DA92BE06DFF0020C995 /* CookieModule.swift */,
 				A51D4CE22C62EB4B00FE09E0 /* CustomHeader.swift */,
@@ -293,6 +296,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5A712462CAC523B00B7DD58 /* PrivacyInfo.xcprivacy in Resources */,
 				3A203D772BDA1CEC0020C995 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -506,7 +510,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = "0.9.0-beta2";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				PRODUCT_BUNDLE_IDENTIFIER = com.forgerock.ios.sdk.swiftui.PingOrchestrate;
@@ -539,7 +543,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = "0.9.0-beta2";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				PRODUCT_BUNDLE_IDENTIFIER = com.forgerock.ios.sdk.swiftui.PingOrchestrate;

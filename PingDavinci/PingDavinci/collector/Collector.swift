@@ -9,6 +9,7 @@
 
 
 import PingOrchestrate
+import Foundation
 
 /// Protocol representing a Collector.
 public protocol Collector: Action, Identifiable {
