@@ -48,9 +48,9 @@ class WorkflowMock: Workflow {
 
 class FlowContextMock: FlowContext {}
 
-class NodeMock: Node {}
+final class NodeMock: Node, Sendable {}
 
-class TestContinueNode: ContinueNode {
+class TestContinueNode: ContinueNode, @unchecked Sendable  {
     override func asRequest() -> Request {
         return RequestMock(urlString: "https://openam.example.com")
     }

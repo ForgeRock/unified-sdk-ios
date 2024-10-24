@@ -22,36 +22,33 @@ class CollectorRegistryTests: XCTestCase {
         collectorFactory = CollectorFactory()
     }
     
-    override func tearDown() {
-        super.tearDown()
-        collectorFactory.reset()
+    override func tearDown() async throws {
+       try await super.tearDown()
+       await collectorFactory.reset()
     }
     
-    func testShouldRegisterCollector() {
-        let jsonArray: [[String: Any]] = [
-            ["type": "TEXT"],
-            ["type": "PASSWORD"],
-            ["type": "SUBMIT_BUTTON"],
-            ["type": "FLOW_BUTTON"]
-        ]
-        
-        let collectors = collectorFactory.collector(from: jsonArray)
+  func testShouldRegisterCollector() async {
+    
+    let jsonArray: [Field] = [Field(type: "TEXT", value: "", key: "", label: ""),
+                              Field(type: "PASSWORD", value: "", key: "", label: ""),
+                              Field(type: "SUBMIT_BUTTON", value: "", key: "", label: ""),
+                              Field(type: "FLOW_BUTTON", value: "", key: "", label: "")]
+    
+        let collectors = await collectorFactory.collector(from: jsonArray)
         XCTAssertTrue(collectors[0] is TextCollector)
         XCTAssertTrue(collectors[1] is PasswordCollector)
         XCTAssertTrue(collectors[2] is SubmitCollector)
         XCTAssertTrue(collectors[3] is FlowCollector)
     }
     
-    func testShouldIgnoreUnknownCollector() {
-        let jsonArray: [[String: Any]] = [
-            ["type": "TEXT"],
-            ["type": "PASSWORD"],
-            ["type": "SUBMIT_BUTTON"],
-            ["type": "FLOW_BUTTON"],
-            ["type": "UNKNOWN"]
-        ]
+    func testShouldIgnoreUnknownCollector() async {
+      let jsonArray: [Field] = [Field(type: "TEXT", value: "", key: "", label: ""),
+                                Field(type: "PASSWORD", value: "", key: "", label: ""),
+                                Field(type: "SUBMIT_BUTTON", value: "", key: "", label: ""),
+                                Field(type: "FLOW_BUTTON", value: "", key: "", label: ""),
+                                Field(type: "UNKNOWN", value: "", key: "", label: "")]
         
-        let collectors = collectorFactory.collector(from: jsonArray)
+        let collectors = await collectorFactory.collector(from: jsonArray)
         XCTAssertEqual(collectors.count, 4)
     }
 }

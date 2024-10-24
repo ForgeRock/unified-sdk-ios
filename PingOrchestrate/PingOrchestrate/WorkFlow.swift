@@ -40,7 +40,7 @@ public enum ModuleKeys: String {
 }
 
 /// Class representing a workflow.
-public final class Workflow {
+public class Workflow: @unchecked Sendable {
     /// The configuration for the workflow.
     public let config: WorkflowConfig
     ///  Global SharedContext
@@ -73,7 +73,6 @@ public final class Workflow {
         }
       started = true
     }
-    
   }
   
     /// Starts the workflow with the provided request.
