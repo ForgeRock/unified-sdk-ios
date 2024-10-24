@@ -14,7 +14,7 @@ import PingOidc
 import PingOrchestrate
 
 /// Module for transforming the response from DaVinci to `Node`.
-public class NodeTransformModule {
+public actor NodeTransformModule {
   
   public static let config: Module<Void> = Module.of(setup: { setup in
     setup.transform { flowContext, response in
@@ -55,7 +55,7 @@ public class NodeTransformModule {
           return FailureNode(cause: ApiError.error(status, json, body))
         }
         
-        return transform(context: flowContext, workflow: setup.workflow, json: json)
+        return await transform(context: flowContext, workflow: setup.workflow, json: json)
       }
       
       // 5XX errors are treated as unrecoverable failures
@@ -64,7 +64,7 @@ public class NodeTransformModule {
     
   })
   
-  private static func transform(context: FlowContext, workflow: Workflow, json: [String: Any]) -> Node {
+  private static func transform(context: FlowContext, workflow: Workflow, json: [String: Any]) async -> Node {
     // If authorizeResponse is present, return success
     if let _ = json[Constants.authorizeResponse] as? [String: Any] {
       return SuccessNode(input: json, session: SessionResponse(json: json))
@@ -72,7 +72,8 @@ public class NodeTransformModule {
     
     var collectors: Collectors = []
     if let _ = json[Constants.form] {
-      collectors.append(contentsOf: Form.parse(json: json))
+      let form = await Form.parse(json: json)
+      collectors.append(contentsOf: form)
     }
     
     return DaVinciConnector(context: context, workflow: workflow, input: json, collectors: collectors)
@@ -92,6 +93,8 @@ struct SessionResponse: Session {
   }
 }
 
-public enum ApiError: Error {
+
+public enum ApiError: Error, @unchecked Sendable {
   case error(Int, [String: Any], String)
 }
+

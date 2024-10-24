@@ -13,7 +13,7 @@ import Foundation
 import PingOidc
 import PingOrchestrate
 
-public class OidcModule {
+public actor OidcModule {
     
     public init() {}
     

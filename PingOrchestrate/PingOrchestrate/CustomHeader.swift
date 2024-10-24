@@ -26,7 +26,7 @@ public class CustomHeaderConfig {
 }
 
 /// Module for injecting custom headers into requests.
-public class CustomHeader {
+public actor CustomHeader {
     
     public init() {}
     

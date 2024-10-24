@@ -12,9 +12,9 @@ import PingOrchestrate
 import Foundation
 
 /// Protocol representing a Collector.
-public protocol Collector: Action, Identifiable {
+public protocol Collector: Action, Identifiable, Sendable {
     var id: UUID { get }
-    init(with json: [String: Any])
+    init(with json: Field)
 }
 
  extension ContinueNode {

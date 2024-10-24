@@ -65,26 +65,24 @@ public class Workflow {
         self.config.register(workflow: self)
     }
     
-    /// Initializes the workflow.
-    public func initialize() async throws {
-        if !started {
-            var tasks: [Task<Void, Error>] = []
-            // Create tasks for each handler
-            for handler in initHandlers {
-                let task = Task {
-                    try await handler()
-                }
-                tasks.append(task)
-            }
-            
-            // Await all tasks to complete
-            for task in tasks {
-                try await task.value
-            }
-            started = true
+  /// Initializes the workflow.
+  public func initialize() async throws {
+    if !started {
+      try await withThrowingTaskGroup(of: Void.self) { group in
+        // Create tasks for each handler
+        for handler in initHandlers {
+          group.addTask {
+            try await handler()
+          }
         }
+        // All tasks run concurrently and errors are automatically propagated
+        try await group.waitForAll()
+      }
+      started = true
     }
     
+  }
+  
     /// Starts the workflow with the provided request.
     /// - Parameter request: The request to start the workflow with.
     /// - Returns: The resulting Node after processing the workflow.

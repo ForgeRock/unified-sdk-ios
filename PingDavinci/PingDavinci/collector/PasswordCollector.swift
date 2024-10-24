@@ -15,7 +15,7 @@ import PingOrchestrate
 /// Class representing a PasswordCollector.
 /// This class inherits from the FieldCollector class and implements the Closeable and Collector protocols.
 /// It is used to collect password data.
-public class PasswordCollector: FieldCollector, Closeable {
+public class PasswordCollector: FieldCollector, Closeable, @unchecked Sendable  {
     public var clearPassword: Bool = true
     
     /// Overrides the close function from the Closeable protocol.

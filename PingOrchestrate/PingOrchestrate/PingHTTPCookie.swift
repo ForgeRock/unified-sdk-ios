@@ -10,7 +10,7 @@
 
 import Foundation
 
-public struct PingHTTPCookie: Codable {
+public struct PingHTTPCookie: Codable, Sendable {
     var version: Int
     var name: String?
     var value: String?

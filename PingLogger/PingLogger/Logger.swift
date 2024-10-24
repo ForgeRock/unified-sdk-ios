@@ -35,7 +35,7 @@ public protocol Logger {
 }
 
 ///LogManager to access the global logger instances
-public struct LogManager {
+public actor LogManager {
   private static var shared: Logger = NoneLogger()
 
   ///Global logger instance. If no logger is set, it defaults to Logger.None.

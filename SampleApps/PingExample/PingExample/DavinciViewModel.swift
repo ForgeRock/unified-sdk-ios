@@ -48,7 +48,7 @@ public let davinciProd = DaVinci.createDaVinci { config in
 }
 
 // Change this to Prod/Stage
-public let davinci = davinciProd
+public let davinci = davinciTest
 
 class DavinciViewModel: ObservableObject {
   
