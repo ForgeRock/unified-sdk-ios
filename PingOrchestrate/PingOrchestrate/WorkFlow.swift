@@ -40,7 +40,7 @@ public enum ModuleKeys: String {
 }
 
 /// Class representing a workflow.
-public class Workflow {
+public final class Workflow {
     /// The configuration for the workflow.
     public let config: WorkflowConfig
     ///  Global SharedContext
@@ -68,16 +68,9 @@ public class Workflow {
   /// Initializes the workflow.
   public func initialize() async throws {
     if !started {
-      try await withThrowingTaskGroup(of: Void.self) { group in
-        // Create tasks for each handler
-        for handler in initHandlers {
-          group.addTask {
-            try await handler()
-          }
+      for handler in initHandlers {
+          try await handler()
         }
-        // All tasks run concurrently and errors are automatically propagated
-        try await group.waitForAll()
-      }
       started = true
     }
     

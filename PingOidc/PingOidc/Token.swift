@@ -11,7 +11,7 @@
 
 import Foundation
 
-public struct Token: Codable {
+public struct Token: Codable, Sendable {
     public let accessToken: String
     public let tokenType: String?
     public let scope: String?

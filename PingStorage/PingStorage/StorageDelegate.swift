@@ -17,7 +17,7 @@ import Foundation
 ///
 /// - Parameter T: The type of the objects being stored. Must conform to `Codable` to ensure that
 ///                objects can be easily encoded and decoded.
-open class StorageDelegate<T: Codable>: Storage {
+open class StorageDelegate<T: Codable & Sendable>: Storage, @unchecked Sendable  {
   private let delegate: any Storage<T>
   private let cacheable: Bool
   private var cached: T?

@@ -105,7 +105,7 @@ public enum KeychainError: LocalizedError {
 /// It is designed to store, retrieve, and manage objects of type `T`, where `T` must conform to the `Codable` protocol. This requirement ensures that the objects can be easily encoded and decoded for secure storage in the keychain.
 ///
 /// - Parameter T: The type of the objects to be stored in the keychain. Must conform to `Codable`.
-public class KeychainStorage<T: Codable>: StorageDelegate<T> {
+public class KeychainStorage<T: Codable & Sendable>: StorageDelegate<T>, @unchecked Sendable {
   /// Initializes a new instance of `KeychainStorage`.
   ///
   /// This initializer configures a `KeychainStorage` instance with a specified account and security settings.

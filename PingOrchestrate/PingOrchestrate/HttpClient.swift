@@ -13,7 +13,7 @@ import Foundation
 import PingLogger
 
 /// `HttpClient` is responsible for handling HTTP requests and logging the details of those requests and responses.
-public class HttpClient {
+public final class HttpClient {
     var session: URLSession
     
     /// Initializes a new instance of `HttpClient`.

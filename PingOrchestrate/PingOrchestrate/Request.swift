@@ -13,7 +13,7 @@ import Foundation
 import UIKit
 
 /// Class for a Request. A Request represents a request to be sent over the network.
-public class Request {
+public final class Request {
     
     public private(set) var urlRequest: URLRequest = URLRequest(url: URL(string: "https://")!)
     
