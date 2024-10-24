@@ -12,7 +12,7 @@
 import Foundation
 import XCTest
 
-class MockURLProtocol: URLProtocol {
+class MockURLProtocol: URLProtocol, @unchecked Sendable {
     public static var requestHistory: [URLRequest] = [URLRequest]()
     
     static var requestHandler: ((URLRequest) throws -> (HTTPURLResponse, Data))?

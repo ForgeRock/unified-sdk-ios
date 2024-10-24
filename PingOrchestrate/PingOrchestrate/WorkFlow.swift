@@ -40,7 +40,7 @@ public enum ModuleKeys: String {
 }
 
 /// Class representing a workflow.
-public class Workflow {
+public class Workflow: @unchecked Sendable {
     /// The configuration for the workflow.
     public let config: WorkflowConfig
     ///  Global SharedContext
@@ -65,26 +65,16 @@ public class Workflow {
         self.config.register(workflow: self)
     }
     
-    /// Initializes the workflow.
-    public func initialize() async throws {
-        if !started {
-            var tasks: [Task<Void, Error>] = []
-            // Create tasks for each handler
-            for handler in initHandlers {
-                let task = Task {
-                    try await handler()
-                }
-                tasks.append(task)
-            }
-            
-            // Await all tasks to complete
-            for task in tasks {
-                try await task.value
-            }
-            started = true
+  /// Initializes the workflow.
+  public func initialize() async throws {
+    if !started {
+      for handler in initHandlers {
+          try await handler()
         }
+      started = true
     }
-    
+  }
+  
     /// Starts the workflow with the provided request.
     /// - Parameter request: The request to start the workflow with.
     /// - Returns: The resulting Node after processing the workflow.

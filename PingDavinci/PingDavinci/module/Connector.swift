@@ -36,7 +36,7 @@ extension ContinueNode {
 ///- property workflow: The Workflow of the ContinueNode.
 ///- property input: The input JsonObject of the ContinueNode.
 ///- property collectors: The collectors of the ContinueNode.
-class DaVinciConnector: ContinueNode {
+class DaVinciConnector: ContinueNode, @unchecked Sendable  {
     
     init(context: FlowContext, workflow: Workflow, input: [String: Any], collectors: Collectors) {
         super.init(context: context, workflow: workflow, input: input, actions: collectors)

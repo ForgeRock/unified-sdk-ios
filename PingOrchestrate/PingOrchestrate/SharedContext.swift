@@ -12,7 +12,7 @@
 import Foundation
 
 /// An actor that manages a shared context using a dictionary.
-public class SharedContext {
+public final class SharedContext {
     private var map: [String: Any] = [:]
     private var queue = DispatchQueue(label: "shared.conext.queue", attributes: .concurrent)
     

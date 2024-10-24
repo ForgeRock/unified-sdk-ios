@@ -15,15 +15,10 @@ import XCTest
 
 class FieldCollectorTests: XCTestCase {
     
-    class MockFieldCollector: FieldCollector {}
+    class MockFieldCollector: FieldCollector, @unchecked Sendable  {}
     
     func testShouldInitializeKeyAndLabelFromJsonObject() {
-        
-        let jsonObject: [String: String] = [
-            "key": "testKey",
-            "label": "testLabel"
-        ]
-        
+        let jsonObject: Field = Field(type: "", value: "", key: "testKey", label: "testLabel")
         let fieldCollector = MockFieldCollector(with: jsonObject)
         
         XCTAssertEqual("testKey", fieldCollector.key)

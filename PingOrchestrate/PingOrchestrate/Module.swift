@@ -14,7 +14,7 @@ import Foundation
 ///  A Module represents a unit of functionality in the application.
 ///  - property config: A function that returns the configuration for the module.
 ///  - property setup: A function that sets up the module.
-public class Module<ModuleConfig>: Equatable {
+public final class Module<ModuleConfig>: Equatable {
     public private(set) var setup: (Setup<ModuleConfig>) -> (Void)
     public private(set) var config: () -> (ModuleConfig)
     public var id: UUID = UUID()

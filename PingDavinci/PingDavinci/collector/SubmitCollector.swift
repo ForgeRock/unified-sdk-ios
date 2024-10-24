@@ -14,4 +14,4 @@ import Foundation
 /// Class representing a TextCollector.
 /// This class inherits from the FieldCollector class and implements the Collector protocol.
 /// `SubmitCollector` is responsible for collecting and managing submission fields.
-public class SubmitCollector: FieldCollector {}
+public class SubmitCollector: FieldCollector, @unchecked Sendable  {}

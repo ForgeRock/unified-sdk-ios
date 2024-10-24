@@ -14,4 +14,4 @@ import Foundation
 /// Class representing a FlowCollector.
 /// This class inherits from the FieldCollector class and implements the Collector protocol.
 /// It is used to collect data in a flow.
-public class FlowCollector: FieldCollector {}
+public class FlowCollector: FieldCollector, @unchecked Sendable  {}

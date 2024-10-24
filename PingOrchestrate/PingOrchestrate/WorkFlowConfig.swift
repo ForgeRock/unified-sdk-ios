@@ -20,7 +20,7 @@ public enum OverrideMode {
 }
 
 /// Workflow configuration
-public class WorkflowConfig {
+public final class WorkflowConfig {
     // Use a list instead of a map to allow registering a module twice with different configurations
     public private(set) var modules: [any ModuleRegistryProtocol] = []
     // Timeout for the HTTP client, default is 15 seconds

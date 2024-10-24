@@ -26,7 +26,7 @@ public protocol ModuleRegistryProtocol<Config> {
 ///  - property priority: The priority of the module in the registry.
 ///  - property config: The configuration for the module.
 ///  - property setup: The function that sets up the module.
-public class ModuleRegistry<Config>: ModuleRegistryProtocol {
+public final class ModuleRegistry<Config>: ModuleRegistryProtocol {
     public var id: UUID = UUID()
     public let priority: Int
     public let config: Config
