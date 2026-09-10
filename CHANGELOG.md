@@ -1,6 +1,7 @@
 ## [UNRELEASED]
 #### Updated
 - Updated `RecaptchaEnterprise` dependency to 18.9.1 for Xcode 27 / iOS 27 compatibility [SDKS-5306]
+- Split the Recognize sample into a dedicated `PingWithRecognize.xcworkspace` (requires the Cloudsmith `keyless` registry); the core `Ping.xcworkspace` no longer references Recognize or Keyless and builds without registry credentials [P1RECMOB-3476]
 
 #### Added
 - Added `ImageCollector` to support image display in DaVinci forms [SDKS-5143]
@@ -39,6 +40,7 @@
 - Added phone number extension support in `PhoneNumberCollector` [SDKS-4668]
 - Added `PushError.pushNumberChallengeError` to surface a distinct failure for Push Number Challenge responses [SDKS-5115]
 - Added `preferImmediatelyAvailableCredentials` option to FIDO authentication to restrict the ceremony to locally-available credentials only [SDKS-5212]
+- Added `PingRecognize` module for PingOne Recognize biometric authentication (enrollment and authentication) [P1RECMOB-3663]
 - Added `AuthMigration` module for migrating existing sessions from the legacy ForgeRock SDK [SDKS-4773]
 - Added Page Node description, header, and footer support [SDKS-4762]
 - Added AM/AIC backchannel authentication support to the `PingJourney` module via `Journey.start(backchannelUri:configure:)` [SDKS-5156]

@@ -37,6 +37,7 @@ MODULES=(
   Oath
   Push
   Binding
+  Recognize
 )
 
 get_scheme_override() {

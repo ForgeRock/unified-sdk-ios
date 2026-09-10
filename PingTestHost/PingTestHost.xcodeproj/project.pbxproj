@@ -70,6 +70,8 @@
 		EC93DEC72EBA08BB0014726E /* PingTestHost.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = EC93DEC62EBA08BB0014726E /* PingTestHost.xctestplan */; };
 		ECB7C6922D5A27840006F1C8 /* PingBrowser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB7C6912D5A27840006F1C8 /* PingBrowser.framework */; };
 		ECB7C6932D5A27840006F1C8 /* PingBrowser.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ECB7C6912D5A27840006F1C8 /* PingBrowser.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ECED512C2DC1111800FA39A7 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = ECED512B2DC1111800FA39A7 /* FacebookCore */; };
+		ECED512E2DC1111800FA39A7 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = ECED512D2DC1111800FA39A7 /* FacebookLogin */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */

@@ -1,0 +1,24 @@
+{
+  "originHash" : "886f0120be1ca4f453deded5bb5c002bdb29aefa1a0452d4ba6fe0a1f97f30c2",
+  "pins" : [
+    {
+      "identity" : "facebook-ios-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/facebook/facebook-ios-sdk",
+      "state" : {
+        "revision" : "3818dd2ccb6547c6d320ff68a1bd599789c3a44f",
+        "version" : "18.1.0"
+      }
+    },
+    {
+      "identity" : "pingone-mobile-sdk-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pingidentity/pingone-mobile-sdk-ios.git",
+      "state" : {
+        "revision" : "6023edf096b885a7208efe7d94b230180a7318cc",
+        "version" : "2.3.1"
+      }
+    }
+  ],
+  "version" : 3
+}

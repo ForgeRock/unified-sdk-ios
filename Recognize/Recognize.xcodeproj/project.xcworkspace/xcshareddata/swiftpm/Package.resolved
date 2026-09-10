@@ -1,0 +1,14 @@
+{
+  "originHash" : "a3b33b3a65cb202c9c34c44d58eef5ae128b275c39c294c71b220894c9137647",
+  "pins" : [
+    {
+      "identity" : "keyless.mobile-sdk",
+      "kind" : "registry",
+      "location" : "",
+      "state" : {
+        "version" : "6.0.0"
+      }
+    }
+  ],
+  "version" : 3
+}

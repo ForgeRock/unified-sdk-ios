@@ -19,6 +19,9 @@ import PingFido
 import PingReCaptchaEnterprise
 import PingBinding
 import PingCommons
+#if canImport(PingRecognize)
+import PingRecognize
+#endif
 
 struct JourneyView: View {
     /// The view model that manages the Journey flow logic.
@@ -195,8 +198,18 @@ struct JourneyNodeView: View {
             callback is FidoRegistrationCallback ||
             callback is FidoAuthenticationCallback ||
             callback is DeviceBindingCallback ||
-            callback is DeviceSigningVerifierCallback
+            callback is DeviceSigningVerifierCallback ||
+            JourneyNodeView.isRecognizeCallback(callback)
         }
+    }
+
+    private static func isRecognizeCallback(_ callback: any Action) -> Bool {
+        #if canImport(PingRecognize)
+        return callback is PingOneRecognizeEnrollCallback ||
+            callback is PingOneRecognizeAuthenticateCallback
+        #else
+        return false
+        #endif
     }
     
     var body: some View {
@@ -282,7 +295,15 @@ struct JourneyNodeView: View {
 
                 case let deviceSigningVerifierCallback as DeviceSigningVerifierCallback:
                     DeviceSigningVerifierCallbackView(callback: deviceSigningVerifierCallback, onNext: onNext)
-                    
+
+                #if canImport(PingRecognize)
+                case let recognizeEnrollCallback as PingOneRecognizeEnrollCallback:
+                    RecognizeEnrollCallbackView(callback: recognizeEnrollCallback, onNext: onNext).id(recognizeEnrollCallback.id)
+
+                case let recognizeAuthCallback as PingOneRecognizeAuthenticateCallback:
+                    RecognizeAuthenticateCallbackView(callback: recognizeAuthCallback, onNext: onNext).id(recognizeAuthCallback.id)
+                #endif
+
                 case _ as HiddenValueCallback:
                     EmptyView()
                     
