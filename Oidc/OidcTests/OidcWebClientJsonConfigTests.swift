@@ -42,6 +42,28 @@ final class OidcWebClientJsonConfigTests: XCTestCase, @unchecked Sendable {
         ]
     }
 
+    /// No `discoveryEndpoint` — the `openId` sub-object stands in for the discovery document.
+    private var openIdOnlyJson: [String: Any] {
+        [
+            "oidc": [
+                "clientId": "my-client",
+                "scopes": ["openid"],
+                "redirectUri": "myapp://callback",
+                "openId": [
+                    "authorizationEndpoint": "https://example.com/authorize",
+                    "tokenEndpoint": "https://example.com/token"
+                ] as [String: Any]
+            ] as [String: Any]
+        ]
+    }
+
+    /// Parses the `oidc` sub-dictionary through the same entry point the factory uses, so the
+    /// resulting `OidcClientConfig` can be inspected (the workflow exposes only its `WorkflowConfig`).
+    private func parseOidcConfig(_ json: [String: Any]) throws -> OidcClientConfig {
+        let oidc = json["oidc"] as! [String: Any]
+        return try OidcClientConfig.from(oidcJson: oidc, logger: LogManager.none)
+    }
+
     // MARK: - Success cases
 
     func testCreateOidcWebClient_success_minimalRequiredFields() {
@@ -250,6 +272,75 @@ final class OidcWebClientJsonConfigTests: XCTestCase, @unchecked Sendable {
             XCTFail("Expected invalidType for additionalParameters, got: \(result)"); return
         }
         XCTAssertTrue(field.hasPrefix("oidc.additionalParameters"))
+    }
+
+    // MARK: - openId as a replacement for the discovery document
+
+    func testCreateOidcWebClient_openIdWithoutDiscoveryEndpoint_succeeds() throws {
+        let result = OidcWebClient.createOidcWebClient(json: openIdOnlyJson)
+        switch result {
+        case .success: break
+        case .failure(let error): XCTFail("Expected success with openId and no discoveryEndpoint, got: \(error)")
+        }
+
+        let config = try parseOidcConfig(openIdOnlyJson)
+        let openId = try XCTUnwrap(config.openId, "openId should stand in for the discovery document")
+        XCTAssertEqual(openId.authorizationEndpoint, "https://example.com/authorize")
+        XCTAssertEqual(openId.tokenEndpoint, "https://example.com/token")
+        // Every other non-optional endpoint defaults to "" and the optional ones to nil.
+        XCTAssertEqual(openId.userinfoEndpoint, "")
+        XCTAssertEqual(openId.endSessionEndpoint, "")
+        XCTAssertEqual(openId.revocationEndpoint, "")
+        XCTAssertNil(openId.pushedAuthorizationRequestEndpoint)
+        XCTAssertEqual(config.discoveryEndpoint, "")
+    }
+
+    func testCreateOidcWebClient_failure_openIdWithoutTokenEndpoint() {
+        var json = openIdOnlyJson
+        var oidc = json["oidc"] as! [String: Any]
+        oidc["openId"] = ["authorizationEndpoint": "https://example.com/authorize"] as [String: Any]
+        json["oidc"] = oidc
+
+        let result = OidcWebClient.createOidcWebClient(json: json)
+        guard case .failure(let error) = result,
+              case .missingRequiredField(let field) = error as? JsonConfigError else {
+            XCTFail("Expected missingRequiredField(oidc.openId.tokenEndpoint), got: \(result)"); return
+        }
+        XCTAssertEqual(field, "oidc.openId.tokenEndpoint")
+    }
+
+    func testCreateOidcWebClient_failure_blankDiscoveryEndpointWithoutOpenId() {
+        var json = minimalJson
+        var oidc = json["oidc"] as! [String: Any]
+        oidc["discoveryEndpoint"] = ""
+        json["oidc"] = oidc
+
+        let result = OidcWebClient.createOidcWebClient(json: json)
+        guard case .failure(let error) = result,
+              case .missingRequiredField(let field) = error as? JsonConfigError else {
+            XCTFail("Expected missingRequiredField(oidc.discoveryEndpoint), got: \(result)"); return
+        }
+        XCTAssertEqual(field, "oidc.discoveryEndpoint")
+    }
+
+    func testCreateOidcWebClient_discoveryEndpointAndOpenId_discoveryOwnsDocument() throws {
+        // Both supplied: discovery still runs and the sub-object becomes an override, so no document
+        // is seeded at parse time.
+        var json = minimalJson
+        var oidc = json["oidc"] as! [String: Any]
+        oidc["openId"] = ["tokenEndpoint": "https://example.com/token"] as [String: Any]
+        json["oidc"] = oidc
+
+        let result = OidcWebClient.createOidcWebClient(json: json)
+        switch result {
+        case .success: break
+        case .failure(let error): XCTFail("Expected success with both discoveryEndpoint and openId, got: \(error)")
+        }
+
+        let config = try parseOidcConfig(json)
+        XCTAssertNil(config.openId, "Discovery should still own the document when both are supplied")
+        XCTAssertNotNil(config.openIdOverride, "openId sub-object should become an openIdOverride")
+        XCTAssertEqual(config.discoveryEndpoint, "https://example.com/.well-known/openid-configuration")
     }
 
     // MARK: - par

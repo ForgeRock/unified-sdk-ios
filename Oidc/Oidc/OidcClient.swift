@@ -63,8 +63,18 @@ public class OidcClient {
     
     /// OidcClient generateAuthorizeUrl with PAR support.
     /// When PAR is enabled in the configuration, authorization parameters are pushed to the server before generating the URL.
-    /// - Parameter customParams: Custom parameters to include in the authorization request.
+    ///
+    /// - Important: this calls `OidcClientConfig.oidcInitialize()` internally (as every other
+    ///   `OidcClient` method does) so `config.openId` is guaranteed populated before PAR eligibility
+    ///   is checked. Without this, a config with `par == true` but no prior discovery would silently
+    ///   fall back to the standard flow — emitting every `additionalParameters` value onto the
+    ///   returned URL's query string instead of the PAR POST body.
+    /// - Parameter customParams: Custom parameters to include in the authorization request. These are
+    ///   applied to the URL *after* PAR population, so they always end up on the front-channel query
+    ///   string — never in the PAR body. Use `OidcClientConfig.additionalParameters` instead for any
+    ///   value that must be kept off the URL when PAR is enabled.
     public func generateAuthorizeUrl(customParams: [String: String]? = nil) async throws -> URL {
+        try await config.oidcInitialize()
         guard let httpClient = config.httpClient else {
             throw OidcError.networkError(message: "HTTP client not found")
         }

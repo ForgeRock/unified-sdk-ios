@@ -78,7 +78,7 @@ final class OidcClientTests: XCTestCase {
             switch failure {
             case .apiError(let code, _):
                 XCTAssertEqual(code, 500)
-            case .authorizeError, .networkError, .unknown:
+            case .authorizeError, .networkError, .configurationError, .unknown:
                 XCTFail("Should have failed with .apiError")
             }
         }
@@ -214,7 +214,7 @@ final class OidcClientTests: XCTestCase {
             switch failure {
             case .apiError(let code, _):
                 XCTAssertEqual(code, 400)
-            case .authorizeError, .networkError, .unknown:
+            case .authorizeError, .networkError, .configurationError, .unknown:
                 XCTFail("Should have failed with .apiError(400)")
             }
         }
@@ -242,7 +242,7 @@ final class OidcClientTests: XCTestCase {
             switch failure {
             case .apiError(let code, _):
                 XCTAssertEqual(code, 400)
-            case .authorizeError, .networkError, .unknown:
+            case .authorizeError, .networkError, .configurationError, .unknown:
                 XCTFail("Should have failed with .apiError(400)")
             }
         }
@@ -272,7 +272,7 @@ final class OidcClientTests: XCTestCase {
             switch failure {
             case .apiError(let code, _):
                 XCTAssertEqual(code, 401)
-            case .authorizeError, .networkError, .unknown:
+            case .authorizeError, .networkError, .configurationError, .unknown:
                 XCTFail("Should have failed with .apiError(401)")
             }
         }
@@ -344,6 +344,26 @@ final class OidcClientTests: XCTestCase {
         XCTAssertTrue(deleted, "delete() should have been called to clear the corrupted token")
     }
 
+    // TestRailCase — SDKS-5301: `oidcInitialize()` failures are re-wrapped in `token()`, and the
+    // re-wrap must preserve a typed `OidcError` rather than collapsing it into `.unknown`.
+    func testTokenSurfacesConfigurationErrorFromOidcInitialize() async throws {
+        oidcClientConfig.discoveryEndpoint = ""
+
+        let result = await oidcClient.token()
+
+        switch result {
+        case .success:
+            XCTFail("Expected failure when neither openId nor discoveryEndpoint is configured")
+        case .failure(let error):
+            if case .configurationError(let message) = error {
+                XCTAssertTrue(message.contains("discoveryEndpoint"))
+                XCTAssertTrue(message.contains("openId"))
+            } else {
+                XCTFail("Expected .configurationError but got \(error)")
+            }
+        }
+    }
+
     // TestRailCase — SDKS-5172: if delete() fails during recovery, token() must surface a
     // failure rather than re-authenticating and looping forever on the same corrupted token.
     func testTokenRecoveryFailsWhenDeleteFails() async throws {
@@ -404,10 +424,101 @@ final class OidcClientTests: XCTestCase {
         XCTAssertFalse(deleted, "revoke() must not delete the token on a transient storage error")
     }
 
+    // TestRailCase — SDKS-5301: the scenario `OidcInitializationCoordinator`'s cancellation
+    // isolation actually protects. `PingJourney`'s `journeyUser()` (and similar APIs) can hand
+    // independent callers an `OidcClient`/`OidcUser` that all wrap the SAME live, not-yet-
+    // initialized `OidcClientConfig` — e.g. a token-refresh interceptor and a UI screen both
+    // calling `.token()` before discovery has completed once for that config. Cancelling one
+    // caller's own task (the UI screen's `.task` when the user navigates away) must not fail the
+    // other caller's unrelated, never-cancelled `token()` call.
+    func testCancellingOneOidcClientsTokenCallDoesNotFailAnotherOidcClientSharingTheSameConfig() async throws {
+        let fakeClient = DiscoveryGatedHttpClient()
+        oidcClientConfig.httpClient = fakeClient
+
+        // Two independent `OidcClient`s wrapping the same shared, not-yet-initialized config —
+        // exactly how independent callers of `journeyUser()` would each get their own client.
+        let firstClient = OidcClient(config: oidcClientConfig)
+        let secondClient = OidcClient(config: oidcClientConfig)
+
+        let firstTask = Task { await firstClient.token() }
+        let secondTask = Task { await secondClient.token() }
+
+        while await fakeClient.requestCount == 0 {
+            await Task.yield()
+        }
+
+        firstTask.cancel()
+
+        let firstResult = await firstTask.value
+        switch firstResult {
+        case .success:
+            XCTFail("Expected the cancelled client's token() call to fail")
+        case .failure:
+            break
+        }
+
+        // The shared discovery `firstClient` and `secondClient` were both waiting on is never
+        // itself cancelled by `firstClient`'s cancellation: releasing it lets it complete normally.
+        await fakeClient.release()
+
+        let secondResult = await secondTask.value
+        switch secondResult {
+        case .success:
+            break
+        case .failure(let error):
+            XCTFail("The client that never cancelled must still get its token, unaffected by the other client's cancellation: \(error)")
+        }
+
+        let finalRequestCount = await fakeClient.requestCount
+        XCTAssertEqual(finalRequestCount, 1, "Both clients must have shared a single discovery request")
+    }
+
     private func makeClient(config: HttpClientConfig = HttpClientConfig()) -> URLSessionHttpClient {
         let sessionConfig = URLSessionConfiguration.ephemeral
         sessionConfig.protocolClasses = [MockURLProtocol.self]
         let session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
         return URLSessionHttpClient(config: config, session: session, delegate: nil)
     }
+}
+
+/// Deterministic `HttpClientProtocol` fake that gates only the discovery request behind
+/// `RequestGate` (shared with `OidcClientConfigTests`, which is cancellation-aware — a caller
+/// whose own task is cancelled while waiting throws `CancellationError` immediately, matching
+/// real `URLSession` behavior); every other request (token exchange, etc.) is answered
+/// immediately, so a caller that is never cancelled can complete its full `token()` flow once
+/// discovery is released — see
+/// `testCancellingOneOidcClientsTokenCallDoesNotFailAnotherOidcClientSharingTheSameConfig`.
+private final class DiscoveryGatedHttpClient: HttpClientProtocol, @unchecked Sendable {
+    private let gate = RequestGate()
+
+    var requestCount: Int {
+        get async { await gate.requestCount }
+    }
+
+    func release() async {
+        await gate.release()
+    }
+
+    func request() -> HttpRequest {
+        URLSessionHttpRequest()
+    }
+
+    func request(request: HttpRequest) async throws -> HttpResponse {
+        if request.url == MockAPIEndpoint.discovery.url.absoluteString {
+            try await gate.recordAndWait()
+            return GatedDiscoveryHttpResponse(request: request, status: 200, body: MockResponse.openIdConfiguration)
+        }
+        if request.url == MockAPIEndpoint.token.url.absoluteString {
+            return GatedDiscoveryHttpResponse(request: request, status: 200, body: MockResponse.token)
+        }
+        return GatedDiscoveryHttpResponse(request: request, status: 500, body: Data())
+    }
+
+    func request(builder: @escaping @Sendable (HttpRequest) -> Void) async throws -> HttpResponse {
+        let req = request()
+        builder(req)
+        return try await request(request: req)
+    }
+
+    func close() {}
 }

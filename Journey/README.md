@@ -606,6 +606,7 @@ let json: [String: Any] = [
     "log": "DEBUG",                // optional
     "oidc": [                      // optional — include to enable OIDC token exchange
         "clientId": "your-client-id",
+        // required unless an `openId` sub-object is supplied (see note below)
         "discoveryEndpoint": "https://example.am.com/am/oauth2/alpha/.well-known/openid-configuration",
         "redirectUri": "myapp://callback",
         "scopes": ["openid", "profile"],
@@ -621,6 +622,8 @@ case .failure(let error):
     print("Configuration error: \(error.localizedDescription)")
 }
 ```
+
+> **`discoveryEndpoint` is required only when no `oidc.openId` sub-object is supplied.** A blank value counts as absent. Supply `openId` *without* `discoveryEndpoint` to skip discovery entirely — that block then becomes the OpenID configuration and `oidc.openId.tokenEndpoint` is required. When both are present, discovery runs and `openId` patches the discovered document. See the [PingOidc README](../Oidc/README.md#without-a-discovery-endpoint) for the full rule.
 
 ### Error handling
 

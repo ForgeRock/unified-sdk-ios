@@ -115,6 +115,41 @@ config.storage = CustomStorage<Token>() //Use Custom Storage
 let ping = OidcClient(config: config)
 ```
 
+### Configuring without discovery
+
+If you already know your provider's endpoints — or your provider publishes no discovery document — set `openId` directly and omit `discoveryEndpoint`. No discovery request is made.
+
+```swift
+public let oidcLogin = OidcWebClient.createOidcWebClient { config in
+    config.module(PingOidc.OidcModule.config) { oidcValue in
+        oidcValue.clientId = "ClientID"
+        oidcValue.scopes = ["openid", "email", "profile"]
+        oidcValue.redirectUri = "org.forgerock.demo://oauth2redirect"
+        // No discoveryEndpoint — these endpoints are used as-is.
+        oidcValue.openId = OpenIdConfiguration(
+            authorizationEndpoint: "https://example.com/as/authorize",
+            tokenEndpoint: "https://example.com/as/token",
+            userinfoEndpoint: "https://example.com/as/userinfo",
+            endSessionEndpoint: "https://example.com/as/signoff",
+            revocationEndpoint: "https://example.com/as/revoke"
+        )
+    }
+}
+```
+
+`authorizationEndpoint`, `tokenEndpoint`, `userinfoEndpoint`, `endSessionEndpoint` and `revocationEndpoint` are required by the initializer; `pingEndsessionEndpoint`, `pushedAuthorizationRequestEndpoint` and `deviceAuthorizationEndpoint` are optional and default to `nil`.
+
+Set `openId` before handing the configuration to a client or workflow. If `openId` is left `nil`, the SDK discovers the document from `discoveryEndpoint` as usual. Supplying neither throws `OidcError.configurationError`.
+
+`openIdOverride` still runs, and is applied exactly once, on top of whichever document is used — discovered or pre-supplied:
+
+```swift
+oidcValue.openId = OpenIdConfiguration(/* ... */)
+oidcValue.openIdOverride = { openId in
+    openId.deviceAuthorizationEndpoint = "https://example.com/device/code"
+}
+```
+
 ## Redirect URI and browser type
 
 `redirectUri` can be a custom URL scheme (e.g. `org.forgerock.demo://oauth2redirect`) or an `https` Universal Link (e.g. `https://example.com/callback`). Which `browserType` you use determines how that redirect is delivered back to the app:
@@ -383,14 +418,46 @@ case .failure(let error):
 
 > **Note:** The top-level `timeout` key is not applied to `OidcDeviceClient` — the device flow HTTP client uses the framework default. Configure the device authorization endpoint via the `openId` override block if it is not advertised in the OIDC discovery document.
 
+### Without a discovery endpoint
+
+`oidc.discoveryEndpoint` is required *unless* an `oidc.openId` sub-object is supplied. A blank or whitespace-only `discoveryEndpoint` counts as absent.
+
+When `openId` is supplied **without** `discoveryEndpoint`, it replaces the discovery document (no network call) and `oidc.openId.tokenEndpoint` becomes required. Any other non-optional endpoint you omit defaults to an empty string, so supply every endpoint your flow actually uses.
+
+```swift
+let json: [String: Any] = [
+    "oidc": [
+        "clientId": "your-client-id",
+        "redirectUri": "myapp://callback",
+        "scopes": ["openid", "profile"],
+        // No discoveryEndpoint — this block *is* the OpenID configuration.
+        "openId": [
+            "authorizationEndpoint": "https://auth.example.com/as/authorize",
+            "tokenEndpoint": "https://auth.example.com/as/token",   // required here
+            "userinfoEndpoint": "https://auth.example.com/as/userinfo",
+            "endSessionEndpoint": "https://auth.example.com/as/signoff",
+            "revocationEndpoint": "https://auth.example.com/as/revoke"
+        ] as [String: Any]
+    ] as [String: Any]
+]
+```
+
+When **both** are supplied, behaviour is unchanged: discovery runs and the `openId` block patches the discovered document — which is the idiom used in the `OidcDeviceClient` example above.
+
 ### Error handling
 
 On invalid input both factories return `.failure(JsonConfigError)`:
 
 | Error | Cause |
 |-------|-------|
-| `missingRequiredField(String)` | A required field is absent |
+| `missingRequiredField(String)` | A required field is absent — e.g. `oidc.discoveryEndpoint` when no `oidc.openId` block is supplied, or `oidc.openId.tokenEndpoint` in the no-discovery form |
 | `invalidType(field:expected:)` | A field has the wrong type |
+
+At runtime, a configuration that ends up with neither a usable `discoveryEndpoint` nor a pre-supplied `openId` throws `OidcError.configurationError(message:)` rather than failing later with a vague error:
+
+| Error | Cause |
+|-------|-------|
+| `OidcError.configurationError(message:)` | Neither `discoveryEndpoint` nor `openId` is set, `discoveryEndpoint` is blank or malformed, or no HTTP client is available |
 
 ## License
 

@@ -87,6 +87,10 @@ GEMINI.MD
 ai-tasks/
 .github/copilot-instructions.md
 
+# Recognize: local registry-state marker — flips hasKeylessRegistry in Package.swift,
+# machine-local state that must never be committed (see Package.swift)
+Recognize/.registry-enabled
+
 # Merge / Finder leftovers
 *.orig
 **/* copy.xcodeproj/

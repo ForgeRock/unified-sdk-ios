@@ -413,6 +413,7 @@ let json: [String: Any] = [
     "log": "DEBUG",            // optional — NONE | ERROR | WARN | INFO | DEBUG
     "oidc": [
         "clientId": "your-client-id",
+        // required unless an `openId` sub-object is supplied (see note below)
         "discoveryEndpoint": "https://auth.example.com/.well-known/openid-configuration",
         "redirectUri": "myapp://callback",
         "scopes": ["openid", "profile", "email"],
@@ -422,7 +423,7 @@ let json: [String: Any] = [
         "refreshThreshold": 60,
         "signOutRedirectUri": "myapp://logout",
         "additionalParameters": ["custom_key": "custom_value"],
-        "openId": [            // endpoint overrides, applied after discovery
+        "openId": [            // endpoint overrides, applied once to the OpenID document
             "tokenEndpoint": "https://auth.example.com/token"
         ]
     ] as [String: Any]
@@ -435,6 +436,8 @@ case .failure(let error):
     print("Configuration error: \(error.localizedDescription)")
 }
 ```
+
+> **`discoveryEndpoint` is required only when no `oidc.openId` sub-object is supplied.** A blank value counts as absent. Supply `openId` *without* `discoveryEndpoint` to skip discovery entirely — that block then becomes the OpenID configuration and `oidc.openId.tokenEndpoint` is required. When both are present (as above), discovery runs and `openId` patches the discovered document. See the [PingOidc README](../Oidc/README.md#without-a-discovery-endpoint) for the full rule.
 
 ### Error handling
 

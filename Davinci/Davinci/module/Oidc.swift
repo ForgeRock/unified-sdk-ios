@@ -36,7 +36,15 @@ public class OidcModule {
             daVinciFlow.sharedContext.set(key: SharedContext.Keys.oidcClientConfigKey, value: config)
             //Override the agent setting
             config.updateAgent(DefaultAgent())
-            try await config.oidcInitialize()
+            // OidcModule is always attached (see DaVinci.swift), so most DaVinci flows never
+            // configure OIDC token exchange and leave both `discoveryEndpoint` and `openId` at
+            // their defaults. Only attempt initialization when OIDC has actually been configured
+            // for this flow — otherwise `oidcInitialize()` throws `OidcError.configurationError`
+            // for a flow that never intended to use OIDC at all.
+            let hasDiscoveryEndpoint = !config.discoveryEndpoint.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            if config.openId != nil || hasDiscoveryEndpoint {
+                try await config.oidcInitialize()
+            }
         }
         
         // Starts the module.

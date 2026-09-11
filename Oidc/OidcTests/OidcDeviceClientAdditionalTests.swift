@@ -37,7 +37,7 @@ class OidcDeviceClientAdditionalTests: XCTestCase {
         config.redirectUri = "org.forgerock.demo://oauth2redirect"
         config.storage = MockStorage<Token>()
         config.httpClient = MockURLProtocol.makeClient()
-        config.setOpenId(makeOpenIdConfig(includeDeviceEndpoint: includeDeviceEndpoint))
+        config.openId = makeOpenIdConfig(includeDeviceEndpoint: includeDeviceEndpoint)
         return config
     }
 

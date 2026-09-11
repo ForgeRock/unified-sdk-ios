@@ -37,7 +37,7 @@ final class AgentTests: XCTestCase {
         clientConfig.clientId = "test-client"
         clientConfig.redirectUri = "https://example.com/callback"
         clientConfig.scopes = ["openid", "profile"]
-        clientConfig.setOpenId(OpenIdConfiguration(authorizationEndpoint: "https://auth.example.com/authorize", tokenEndpoint: "https://auth.example.com/token", userinfoEndpoint: "https://auth.example.com/userInfo", endSessionEndpoint: "https://auth.example.com/endSession", revocationEndpoint: "https://auth.example.com/revoke", pingEndsessionEndpoint: "https://auth.example.com/authorized/ping/endSession"))
+        clientConfig.openId = OpenIdConfiguration(authorizationEndpoint: "https://auth.example.com/authorize", tokenEndpoint: "https://auth.example.com/token", userinfoEndpoint: "https://auth.example.com/userInfo", endSessionEndpoint: "https://auth.example.com/endSession", revocationEndpoint: "https://auth.example.com/revoke", pingEndsessionEndpoint: "https://auth.example.com/authorized/ping/endSession")
         oidcConfig = OidcConfig(oidcClientConfig: clientConfig, config: ())
     }
     

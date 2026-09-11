@@ -57,6 +57,11 @@ public extension OidcWebClient {
     /// delegates to `createOidcWebClient(block:)` with the extracted values. Unknown
     /// fields are silently ignored for forward compatibility.
     ///
+    /// `discoveryEndpoint` is required unless an `openId` sub-object is supplied. When `openId` is
+    /// supplied without `discoveryEndpoint` it replaces the discovery document (no network call) and
+    /// `tokenEndpoint` becomes required. When both are supplied, discovery runs and `openId` patches
+    /// the discovered document.
+    ///
     /// - Parameter json: A `[String: Any]` dictionary conforming to the unified SDK
     ///   configuration schema (see design doc for field reference).
     /// - Returns: `.success(OidcWebClient)` on valid input, `.failure(JsonConfigError)` if a

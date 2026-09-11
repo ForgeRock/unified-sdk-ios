@@ -140,7 +140,7 @@ class OidcDeviceClientTests: XCTestCase {
         config.storage = MockStorage<Token>()
         config.httpClient = MockURLProtocol.makeClient()
         // Set openId directly so oidcInitialize() skips real discovery
-        config.setOpenId(makeOpenIdConfig(includeDeviceEndpoint: includeDeviceEndpoint))
+        config.openId = makeOpenIdConfig(includeDeviceEndpoint: includeDeviceEndpoint)
         return config
     }
 

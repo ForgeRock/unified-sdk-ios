@@ -24,14 +24,14 @@ final class PopulateDeviceFlowVerificationRequestTests: XCTestCase {
     private func makeConfig(deviceAuthEndpoint: String, clientId: String = "my-client") -> OidcClientConfig {
         let config = OidcClientConfig()
         config.clientId = clientId
-        config.setOpenId(OpenIdConfiguration(
+        config.openId = OpenIdConfiguration(
             authorizationEndpoint: "https://auth.example.com/authorize",
             tokenEndpoint: "https://auth.example.com/token",
             userinfoEndpoint: "https://auth.example.com/userinfo",
             endSessionEndpoint: "https://auth.example.com/signoff",
             revocationEndpoint: "https://auth.example.com/revoke",
             deviceAuthorizationEndpoint: deviceAuthEndpoint
-        ))
+        )
         return config
     }
 

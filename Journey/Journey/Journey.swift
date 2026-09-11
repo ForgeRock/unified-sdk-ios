@@ -126,6 +126,9 @@ public extension Journey {
             if let c: NSObject.Type = NSClassFromString("PingBinding.BindingModule") as? NSObject.Type {
                 c.perform(Selector(("registerCallbacks")))
             }
+            if let c: NSObject.Type = NSClassFromString("PingRecognize.RecognizeCallbacks") as? NSObject.Type {
+                c.perform(Selector(("registerCallbacks")))
+            }
         }
         // Apply custom configuration
         block(config)

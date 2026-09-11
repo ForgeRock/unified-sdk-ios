@@ -62,8 +62,11 @@ public class OidcDeviceClient: @unchecked Sendable {
     /// silently ignored for forward compatibility.
     ///
     /// Endpoint overrides (e.g. `deviceAuthorizationEndpoint`) are expressed as an
-    /// `openId` sub-object inside `oidc` and applied after OIDC discovery completes,
-    /// mirroring the `openIdOverride` closure on `OidcClientConfig`.
+    /// `openId` sub-object inside `oidc`, mirroring the `openIdOverride` closure on
+    /// `OidcClientConfig`. `discoveryEndpoint` is required unless an `openId` sub-object is
+    /// supplied. When `openId` is supplied without `discoveryEndpoint` it replaces the discovery
+    /// document (no network call) and `tokenEndpoint` becomes required. When both are supplied,
+    /// discovery runs and `openId` patches the discovered document.
     ///
     /// - Parameter json: A `[String: Any]` dictionary conforming to the unified SDK
     ///   configuration schema.

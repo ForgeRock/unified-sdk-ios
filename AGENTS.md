@@ -129,6 +129,7 @@ PingBinding ← PingCommons, PingDeviceId, PingJourneyPlugin
 PingOath ← PingTamperDetector
 PingPush ← PingNetwork, PingTamperDetector
 PingAuthMigration ← PingOath, PingPush
+PingRecognize ← PingJourneyPlugin, KeylessSDK (iOS only)
 PingDeviceClient ← PingCommons, PingNetwork
 ```
 
