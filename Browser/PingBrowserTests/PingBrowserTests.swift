@@ -118,15 +118,78 @@ final class HttpsCallbackComponentsTests: XCTestCase {
 
 @MainActor
 final class BrowserModeTests: XCTestCase {
-    
+
     func testBrowserModeValues() {
         let loginMode: BrowserMode = .login
         let logoutMode: BrowserMode = .logout
         let customMode: BrowserMode = .custom
-        
+
         XCTAssertNotNil(loginMode)
         XCTAssertNotNil(logoutMode)
         XCTAssertNotNil(customMode)
+    }
+
+    func testCustomModeIsDistinctFromLoginAndLogout() {
+        XCTAssertNotEqual(BrowserMode.custom, BrowserMode.login)
+        XCTAssertNotEqual(BrowserMode.custom, BrowserMode.logout)
+        XCTAssertNotEqual(BrowserMode.login, BrowserMode.logout)
+    }
+}
+
+// MARK: - Present-only mode Tests
+//
+// `isPresentOnlyMode(_:)` and `isActiveSessionToken(_:activeToken:)` are the two pieces of the
+// present-only (`browserMode: .custom`) behavior that are testable headless, mirroring
+// `HttpsCallbackComponentsTests`. The latter is the actual decision logic behind the trickiest part
+// of this feature — telling a late `ASWebAuthenticationSession` callback for a stale/replaced
+// session apart from a present-only session's own eventual terminal callback — extracted specifically
+// so it has direct coverage here rather than living only inside an untestable closure. Real
+// "presentation success" coverage for `.sfViewController`/`.authSession`/`.ephemeralAuthSession`
+// against the concrete `BrowserLauncher` class would still require either a live foreground
+// window/scene plus a real, non-deterministically-dismissable OS sheet, or a dependency-injection
+// seam that doesn't exist today (`state`/`loginContinuation` are `private`, no test-only accessor) —
+// this is a pre-existing gap, not one present-only mode introduces: `BrowserLauncherTests` below
+// already only exercises `reset()`/`handleAppActivation()` on an idle instance for the same reason,
+// and none of the existing `.login`/`.logout` failure branches are unit-tested against the real
+// class either. The present-only branches only add a new success-tail *after* presentation already
+// succeeds — they don't touch any existing failure `guard`, and structurally can't leave a dangling
+// continuation for `.sfViewController`/`.nativeBrowserApp` (the continuation is simply never
+// constructed on that path).
+
+@MainActor
+final class PresentOnlyModeTests: XCTestCase {
+
+    func testCustomModeIsPresentOnly() {
+        XCTAssertTrue(BrowserLauncher.isPresentOnlyMode(.custom))
+    }
+
+    func testLoginModeIsNotPresentOnly() {
+        XCTAssertFalse(BrowserLauncher.isPresentOnlyMode(.login))
+    }
+
+    func testLogoutModeIsNotPresentOnly() {
+        XCTAssertFalse(BrowserLauncher.isPresentOnlyMode(.logout))
+    }
+}
+
+// MARK: - Session token Tests
+
+@MainActor
+final class SessionTokenTests: XCTestCase {
+
+    func testMatchingTokenIsActive() {
+        let token = UUID()
+        XCTAssertTrue(BrowserLauncher.isActiveSessionToken(token, activeToken: token))
+    }
+
+    func testDifferentTokenIsNotActive() {
+        XCTAssertFalse(BrowserLauncher.isActiveSessionToken(UUID(), activeToken: UUID()))
+    }
+
+    func testNilActiveTokenIsNeverActive() {
+        // Mirrors the state after `cleanup()`: any late callback for a session that has already
+        // fully finished (or was never the active one) must be treated as stale, not active.
+        XCTAssertFalse(BrowserLauncher.isActiveSessionToken(UUID(), activeToken: nil))
     }
 }
 
@@ -372,11 +435,17 @@ class MockBrowserLauncher: BrowserLauncherProtocol {
     }
     
     var isInProgress: Bool = false
-    
+
     /// A closure that will be called when `launch` is invoked.
     var launchHandler: ((URL, BrowserType, String) async throws -> URL)?
-    
+
+    /// Records the `browserMode` most recently passed to `launch`, independent of `launchHandler`
+    /// (whose closure signature predates `browserMode` and doesn't carry it), so tests can assert
+    /// on it without changing `launchHandler`'s signature for every existing caller.
+    var capturedBrowserMode: BrowserMode?
+
     func launch(url: URL, customParams: [String : String]?, browserType: PingBrowser.BrowserType, browserMode: PingBrowser.BrowserMode, callbackURLScheme: String, logger: Logger = LogManager.logger) async throws -> URL {
+        capturedBrowserMode = browserMode
         if let handler = launchHandler {
             return try await handler(url, browserType, callbackURLScheme)
         }
@@ -424,5 +493,34 @@ final class BrowserLauncherProtocolBackwardCompatTests: XCTestCase {
         XCTAssertEqual(capturedURL, expectedURL)
         XCTAssertEqual(capturedBrowserType, .authSession)
         XCTAssertEqual(capturedCallbackURLScheme, "myapp")
+    }
+
+    /// Confirms the protocol-level default implementation forwards `browserMode: .custom`
+    /// untouched, with no protocol-level special-casing introduced for present-only mode.
+    func testCustomBrowserModeForwardsThroughDefaultImplementation() async throws {
+        let mock = MockBrowserLauncher()
+        var capturedURL: URL?
+        let expectedURL = URL(string: "https://auth.example.com")!
+        let expectedReturnURL = URL(string: "https://auth.example.com")!
+
+        mock.launchHandler = { url, browserType, callbackURLScheme in
+            capturedURL = url
+            return expectedReturnURL
+        }
+
+        let launcher: BrowserLauncherProtocol = mock
+        let result = try await launcher.launch(
+            url: expectedURL,
+            customParams: nil,
+            browserType: .sfViewController,
+            browserMode: .custom,
+            callbackURLScheme: "myapp",
+            redirectUri: nil,
+            logger: LogManager.logger
+        )
+
+        XCTAssertEqual(result, expectedReturnURL)
+        XCTAssertEqual(capturedURL, expectedURL)
+        XCTAssertEqual(mock.capturedBrowserMode, .custom)
     }
 }

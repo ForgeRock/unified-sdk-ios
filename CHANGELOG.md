@@ -9,6 +9,7 @@
 - Added `trigger` and `isAutomatic` to the DaVinci FIDO collectors [SDKS-4552]
 - Added Facebook Limited Login (OIDC ID-token flow) support in `PingExternalIdPFacebook`. Toggle via the new `facebookLimitedLoginEnabled` property on `IdpCollector` (DaVinci) or on `FacebookHandler` / `FacebookRequestHandler` directly; defaults to `false` (classic OAuth2). On the Journey path, provider names containing `fb-limited` automatically opt into Limited Login [SDKS-5160, SDKS-5161, SDKS-5162]
 - Bumped `facebook-ios-sdk` to 18.1.0 [SDKS-5160]
+- Added present-only launch mode to `BrowserLauncher` via `browserMode: .custom` — `launch()` resolves as soon as the browser UI is presented, without waiting for a callback, for use cases like session handoff / in-app SSO where no redirect back to the app is ever expected [SDKS-5357]
 - `oidc.discoveryEndpoint` in the unified JSON configuration is now required only when no `oidc.openId` sub-object is supplied; an `openId` block without `discoveryEndpoint` replaces the discovery document and requires `tokenEndpoint` [SDKS-5301]
 - Added `OidcError.configurationError` to report a configuration that has neither a usable `discoveryEndpoint` nor a pre-supplied `openId` [SDKS-5301]
 

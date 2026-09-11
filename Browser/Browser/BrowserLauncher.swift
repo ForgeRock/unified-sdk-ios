@@ -119,6 +119,15 @@ public final class BrowserLauncher: NSObject, BrowserLauncherProtocol {
     // Concurrency & Combine
     private var loginContinuation: CheckedContinuation<URL, Error>?
     private var cancellable: AnyCancellable?
+
+    /// Identifies the `ASWebAuthenticationSession` currently held by `state`, so the session's own
+    /// `completion` closure can tell a late callback for a stale/replaced session (ignore, exactly as
+    /// `reset()` already expects) apart from this session's own eventual terminal callback (must
+    /// still finalize via `cleanup()`, so `state` doesn't leak). A value-type token is used instead
+    /// of capturing the `ASWebAuthenticationSession` instance itself in `completion`, because
+    /// `ASWebAuthenticationSession` retains its `completionHandler` — capturing the session back
+    /// from inside that same handler would create a retain cycle (session -> completion -> session).
+    private var activeAuthSessionToken: UUID?
     
     // MARK: - Public Methods
     
@@ -216,7 +225,7 @@ public final class BrowserLauncher: NSObject, BrowserLauncherProtocol {
 
         logger.i("Launching browser type: \(browserType) for URL: \(finalUrl.absoluteString)")
 
-        return try await performLaunch(url: finalUrl, browserType: browserType, callbackURLScheme: callbackURLScheme, redirectUri: redirectUri)
+        return try await performLaunch(url: finalUrl, browserType: browserType, browserMode: browserMode, callbackURLScheme: callbackURLScheme, redirectUri: redirectUri)
     }
     
     // MARK: - Private Helpers
@@ -235,6 +244,14 @@ public final class BrowserLauncher: NSObject, BrowserLauncherProtocol {
         }
         
         return urlComponents?.url ?? url
+    }
+
+    /// Whether `browserMode` indicates present-only ("resolve on presentation, never wait for a
+    /// callback") behavior. Centralized so all three presentation paths agree on the same semantics.
+    /// - Parameter browserMode: The mode passed to `launch()`.
+    /// - Returns: `true` for `.custom`; `false` for `.login`/`.logout`.
+    static func isPresentOnlyMode(_ browserMode: BrowserMode) -> Bool {
+        browserMode == .custom
     }
 
     /// Classifies a redirect URI for use as an OS-brokered `ASWebAuthenticationSession` https callback.
@@ -274,20 +291,21 @@ public final class BrowserLauncher: NSObject, BrowserLauncherProtocol {
     /// - Parameters:
     ///  - url: The URL to be opened
     ///  - browserType: The type of browser to be used
+    ///  - browserMode: BrowserMode enum to specify the mode of the browser; login, logout, or custom (present-only)
     ///  - callbackURLScheme: The callback URL scheme for the app
     ///  - redirectUri: The full redirect URI, used to determine whether an OS-brokered https callback can be used
     ///  - Returns: The URL after authentication is complete
     ///  - Throws: An error if the launch fails
-    private func performLaunch(url: URL, browserType: BrowserType, callbackURLScheme: String, redirectUri: String?) async throws -> URL {
+    private func performLaunch(url: URL, browserType: BrowserType, browserMode: BrowserMode, callbackURLScheme: String, redirectUri: String?) async throws -> URL {
         switch browserType {
         case .nativeBrowserApp:
-            return try await loginWithNativeBrowser(url: url, callbackURLScheme: callbackURLScheme)
+            return try await loginWithNativeBrowser(url: url, callbackURLScheme: callbackURLScheme, browserMode: browserMode)
         case .sfViewController:
-            return try await loginWithSFViewController(url: url, callbackURLScheme: callbackURLScheme)
+            return try await loginWithSFViewController(url: url, callbackURLScheme: callbackURLScheme, browserMode: browserMode)
         case .authSession:
-            return try await asWebAuthenticationSession(url: url, callbackURLScheme: callbackURLScheme, redirectUri: redirectUri, prefersEphemeralWebBrowserSession: false)
+            return try await asWebAuthenticationSession(url: url, callbackURLScheme: callbackURLScheme, redirectUri: redirectUri, browserMode: browserMode, prefersEphemeralWebBrowserSession: false)
         case .ephemeralAuthSession:
-            return try await asWebAuthenticationSession(url: url, callbackURLScheme: callbackURLScheme, redirectUri: redirectUri, prefersEphemeralWebBrowserSession: true)
+            return try await asWebAuthenticationSession(url: url, callbackURLScheme: callbackURLScheme, redirectUri: redirectUri, browserMode: browserMode, prefersEphemeralWebBrowserSession: true)
         }
     }
     
@@ -308,8 +326,20 @@ public final class BrowserLauncher: NSObject, BrowserLauncherProtocol {
         cancellable?.cancel()
         cancellable = nil
         loginContinuation = nil // Ensure nil
+        activeAuthSessionToken = nil
         state = .idle
         logger.i("Browser session cleaned up.")
+    }
+
+    /// Whether `token` matches the currently active `ASWebAuthenticationSession`'s token — i.e.
+    /// whether a callback carrying `token` belongs to the session `state` currently holds, rather
+    /// than a stale/replaced one. Pure and headless-testable, mirroring `httpsCallbackComponents`.
+    /// - Parameters:
+    ///   - token: The token captured by a specific `asWebAuthenticationSession` invocation's `completion` closure.
+    ///   - activeToken: `activeAuthSessionToken` at the time the callback fires.
+    /// - Returns: `true` if `token` still matches `activeToken`.
+    static func isActiveSessionToken(_ token: UUID, activeToken: UUID?) -> Bool {
+        token == activeToken
     }
     
     // MARK: - Specific Browser Implementations
@@ -318,22 +348,34 @@ public final class BrowserLauncher: NSObject, BrowserLauncherProtocol {
     /// - Parameters:
     ///   - url: URL of /authorize including all URL query parameter
     ///   - callbackURLScheme: Callback URL Scheme to return to the app
+    ///   - browserMode: BrowserMode enum to specify the mode of the browser; login, logout, or custom (present-only)
     /// - Returns: URL after authentication is complete
     /// - Throws: BrowserError if authentication fails
-    private func loginWithNativeBrowser(url: URL, callbackURLScheme: String) async throws -> URL {
+    private func loginWithNativeBrowser(url: URL, callbackURLScheme: String, browserMode: BrowserMode) async throws -> URL {
         let opened = await withCheckedContinuation { (cont: CheckedContinuation<Bool, Never>) in
             UIApplication.shared.open(url, options: [:]) { success in
                 cont.resume(returning: success)
             }
         }
-        
+
         guard opened else {
             state = .idle
             throw BrowserError.externalUserAgentFailure
         }
-        
+
+        if BrowserLauncher.isPresentOnlyMode(browserMode) {
+            // Present-only: control has already left our app for a different app (Safari). There's
+            // no in-app UI element for us to retain, so resolve to idle immediately rather than
+            // waiting on a callback that, for this mode, is never coming — leaving `state` at
+            // `.authenticating` here would also make `handleAppActivation()`'s native-browser-cancel
+            // heuristic misfire the next time the app foregrounds.
+            logger.i("Present-only native browser launch succeeded; resolving without waiting for a callback.")
+            cleanup()
+            return url
+        }
+
         state = .authenticating(session: "Native Browser")
-        
+
         return try await withCheckedThrowingContinuation { continuation in
             self.loginContinuation = continuation
             self.observeCallback(scheme: callbackURLScheme)
@@ -344,13 +386,14 @@ public final class BrowserLauncher: NSObject, BrowserLauncherProtocol {
     /// - Parameters:
     ///   - url: URL of /authorize including all URL query parameter
     ///   - callbackURLScheme: Callback URL Scheme to return to the app
+    ///   - browserMode: BrowserMode enum to specify the mode of the browser; login, logout, or custom (present-only)
     /// - Returns: URL after authentication is complete
     /// - Throws: BrowserError if authentication fails
-    private func loginWithSFViewController(url: URL, callbackURLScheme: String) async throws -> URL {
+    private func loginWithSFViewController(url: URL, callbackURLScheme: String, browserMode: BrowserMode) async throws -> URL {
         let safariVC = SFSafariViewController(url: url)
         safariVC.delegate = self
         safariVC.modalPresentationStyle = .fullScreen
-        
+
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let root = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController else {
             logger.e("Fail to launch SFSafariViewController; missing presenting ViewController", error: nil)
@@ -363,11 +406,21 @@ public final class BrowserLauncher: NSObject, BrowserLauncherProtocol {
               !(presented is UIAlertController) {
             presentingVC = presented
         }
-        
+
         // We set state BEFORE presenting to prevent race conditions
         state = .authenticating(session: safariVC)
         presentingVC.present(safariVC, animated: true)
-        
+
+        if BrowserLauncher.isPresentOnlyMode(browserMode) {
+            // Present-only: the UI is now shown; resolve without waiting for a callback. No
+            // continuation is ever created, so nothing can leak. `state` stays
+            // `.authenticating(session: safariVC)`, keeping `safariVC` retained (so the sheet's own
+            // dismiss still works via `safariViewControllerDidFinish` -> `reset()`) and `isInProgress`
+            // `true` for as long as the sheet is shown.
+            logger.i("Present-only SFSafariViewController presented; resolving without waiting for a callback.")
+            return url
+        }
+
         return try await withCheckedThrowingContinuation { continuation in
             self.loginContinuation = continuation
             
@@ -399,19 +452,26 @@ public final class BrowserLauncher: NSObject, BrowserLauncherProtocol {
     ///   - url: URL of /authorize including all URL query parameter
     ///   - callbackURLScheme: Callback URL Scheme to return to the app
     ///   - redirectUri: The full redirect URI, used to determine whether an OS-brokered https callback can be used
+    ///   - browserMode: BrowserMode enum to specify the mode of the browser; login, logout, or custom (present-only)
     ///   - prefersEphemeralWebBrowserSession: Set to true to use ephemeral web browser session
     /// - Returns: URL after authentication is complete
     /// - Throws: BrowserError if authentication fails
     private func asWebAuthenticationSession(url: URL, callbackURLScheme: String, redirectUri: String?,
-                                            prefersEphemeralWebBrowserSession: Bool) async throws -> URL {
-        
+                                            browserMode: BrowserMode, prefersEphemeralWebBrowserSession: Bool) async throws -> URL {
+
         return try await withCheckedThrowingContinuation { [weak self] continuation in
             guard let self = self else {
                 continuation.resume(throwing: BrowserError.externalUserAgentFailure)
                 return
             }
-            
+
             self.loginContinuation = continuation
+
+            // Identifies THIS invocation's session without ever capturing the session object itself
+            // in `completion` below — see `activeAuthSessionToken`'s doc comment for why capturing
+            // the object would create a retain cycle. A plain `let`, captured normally (by value,
+            // like `self` further below): no forward-reference concerns, unlike the session itself.
+            let sessionToken = UUID()
 
             // Shared completion handler, reused verbatim by both the legacy
             // `callbackURLScheme:` initializer and the (future) `Callback.https` initializer.
@@ -424,28 +484,37 @@ public final class BrowserLauncher: NSObject, BrowserLauncherProtocol {
 
                 self.logger.i("ASWebAuthenticationSession callback received")
 
-                // CRITICAL: Check if continuation is still valid (not nilled by reset())
-                guard let activeContinuation = self.loginContinuation else {
-                    self.logger.i("Continuation already consumed or cancelled. Ignoring Session callback.")
+                // Distinguish "a different/later session already replaced this one in `state`"
+                // (reset()-then-stale-callback — must no-op, exactly as before) from "this session
+                // is still the active one, but `loginContinuation` was already resolved early by
+                // present-only mode" (must still finalize via cleanup(), so `state` doesn't leak).
+                // Continuation presence alone can't distinguish these two cases.
+                guard BrowserLauncher.isActiveSessionToken(sessionToken, activeToken: self.activeAuthSessionToken) else {
+                    self.logger.i("Late ASWebAuthenticationSession callback for a session that is no longer active. Ignoring.")
                     return
                 }
 
-                self.loginContinuation = nil // Consume it
+                let activeContinuation = self.loginContinuation
+                self.loginContinuation = nil // Consume it, if present
                 self.state = .closing
 
-                if let error = error {
-                    // Check for User Cancel
-                    let nsError = error as NSError
-                    if nsError.domain == ASWebAuthenticationSessionError.errorDomain,
-                       nsError.code == ASWebAuthenticationSessionError.canceledLogin.rawValue {
-                        activeContinuation.resume(throwing: BrowserError.externalUserAgentCancelled)
+                if let activeContinuation {
+                    if let error = error {
+                        // Check for User Cancel
+                        let nsError = error as NSError
+                        if nsError.domain == ASWebAuthenticationSessionError.errorDomain,
+                           nsError.code == ASWebAuthenticationSessionError.canceledLogin.rawValue {
+                            activeContinuation.resume(throwing: BrowserError.externalUserAgentCancelled)
+                        } else {
+                            activeContinuation.resume(throwing: error)
+                        }
+                    } else if let url = callbackURL {
+                        activeContinuation.resume(returning: url)
                     } else {
-                        activeContinuation.resume(throwing: error)
+                        activeContinuation.resume(throwing: BrowserError.externalUserAgentFailure)
                     }
-                } else if let url = callbackURL {
-                    activeContinuation.resume(returning: url)
                 } else {
-                    activeContinuation.resume(throwing: BrowserError.externalUserAgentFailure)
+                    self.logger.i("Present-only session finished with no pending continuation (already resolved on presentation).")
                 }
 
                 self.cleanup()
@@ -503,6 +572,7 @@ public final class BrowserLauncher: NSObject, BrowserLauncherProtocol {
             authSession.presentationContextProvider = self
             authSession.prefersEphemeralWebBrowserSession = prefersEphemeralWebBrowserSession
 
+            self.activeAuthSessionToken = sessionToken
             self.state = .authenticating(session: authSession)
 
             if !authSession.start() {
@@ -512,6 +582,15 @@ public final class BrowserLauncher: NSObject, BrowserLauncherProtocol {
                 self.loginContinuation?.resume(throwing: BrowserError.externalUserAgentFailure)
                 self.loginContinuation = nil
                 self.cleanup()
+            } else if BrowserLauncher.isPresentOnlyMode(browserMode) {
+                // Present-only: presentation started successfully. Resolve now rather than waiting
+                // for `completion`. Deliberately do NOT call cleanup()/dismiss here: `state` holds
+                // the only strong reference to `authSession`, and releasing it would immediately
+                // auto-dismiss the sheet, defeating the "stays open" requirement. `completion`
+                // (above) finalizes `cleanup()` later, whenever the OS reports this session finished.
+                self.logger.i("Present-only ASWebAuthenticationSession presented; resolving without waiting for a callback.")
+                self.loginContinuation?.resume(returning: url)
+                self.loginContinuation = nil
             }
         }
     }
